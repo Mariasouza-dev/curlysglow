@@ -1,12 +1,39 @@
+/*Reset*/
+* {
+    /*Margem = Externa */
+    margin:0;
+}
 
 body {
-    
-/* Cor Fundo */
+
+    /* Cor Fundo */
     background-color: #69200f;
-    
-    /* Corte Texto */
-    color:;
+
+    /* Cor Texto */
+    color: white;
 
 }
 
-   
+/* Seletor para os <A> */
+a {
+    /* Propriedade e Valor */
+    text-decoration: none;
+    color: white;
+}
+
+
+
+
+/* Header = Cabeçalho */
+header {
+    /* Row Linha Horizontal*/
+    display: flex ;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #b4593d;
+
+    /* Largura */
+      width: 100%
+
+    
+}
