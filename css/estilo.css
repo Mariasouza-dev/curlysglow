@@ -39,3 +39,13 @@ header {
 
     
 }
+
+/* UL */
+.menu {
+    list-style: none;
+    /* Lista Horizontal */
+    display: flex;
+    /* espaço */
+    gap: 1rem;
+}
+
