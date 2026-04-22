@@ -1,74 +1,483 @@
 <!DOCTYPE html>
-<html lang="pt-br">
-
+<html lang="pt-pt">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Curlys Glow</title>
-    <!-- Bootstrap Icons -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
-
-    <!-- CSS -->
-    <link rel="stylesheet" href="css/estilo.css">
+    <meta name="description" content="Curlys Glow - Salão de luxo especializado em cabelos cacheados. Realce a sua beleza natural com tratamentos exclusivos e produtos premium.">
+    <title>Curlys Glow | O Brilho dos Seus Cachos</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
-    <!--  -->
-
-    <!-- Cabeçalho -->
-    <header>
-        <!-- Logo -->
-        <div class="header-logo">
-            <a href="#home">
-                <img src="Imagem/ChatGPT_Image_1_de_abr._de_2026__21_20_45-removebg-preview.png" alt="">
-               
-            </a>
+    <!-- Navigation -->
+    <header class="navbar" id="navbar">
+        <div class="container nav-container">
+            <a href="#" class="logo">Curlys <span>Glow</span></a>
+            <nav class="nav-links">
+                <a href="#home">Início</a>
+                <a href="#services">Serviços</a>
+                <a href="#shop">Loja</a>
+                <a href="#booking">Marcações</a>
+                <a href="#footer">Contato</a>
+            </nav>
+            <div class="nav-actions">
+                <a href="#" class="cart-icon"><i class="fa-solid fa-bag-shopping"></i><span class="cart-count">0</span></a>
+                <button class="theme-toggle" id="themeToggle" title="Alternar Tema">
+                    <i class="fa-solid fa-sun"></i>
+                </button>
+                <button class="mobile-menu-btn" id="mobileMenuBtn"><i class="fa-solid fa-bars"></i></button>
+            </div>
         </div>
-
-        <!-- Menu Desktop / Pc -->
-        <nav class="menu-desktop">
-            <ul class="menu">
-                <li>
-                    <a href="#home" class="menu-link active">
-                        <span class="menu-texto"> Home </span>
-                    </a>
-                </li>
-
-                <li>
-                    <a href="#servicos" class="menu-link">
-                        <span class="menu-texto"> Serviços </span>
-                    </a>
-                </li>
-
-                <li>
-                    <a href="#produtos" class="menu-link">
-                        <span class="menu-texto"> Produtos </span>
-                    </a>
-                </li>
-
-                <li>
-                    <a href="#contato" class="menu-link">
-                        <span class="menu-texto"> Contato </span>
-                    </a>
-                </li>
-            </ul>
-
-
-        </nav>
-        <!-- Icone trocar Cor Tema  -->
-        <div class="header-toggle">
-
-            <!-- Icone Sol ou Lua -->
-            <i class="bi bi-brightness-alt-high" id="toggleTheme"></i>
-
-            <!--Botão Hamburguer -->
-            <button class="btn-menu-mobile" id="menuHamburger">
-                <i class="bi bi-list"></i>
-            </button>
+        <!-- Mobile Menu Overlay -->
+        <div class="mobile-menu" id="mobileMenu">
+            <button class="close-menu" id="closeMenu"><i class="fa-solid fa-xmark"></i></button>
+            <nav class="mobile-nav-links">
+                <a href="#home">Início</a>
+                <a href="#services">Serviços</a>
+                <a href="#shop">Loja</a>
+                <a href="#booking">Marcações</a>
+                <a href="#footer">Contato</a>
+            </nav>
+            <div class="mobile-social">
+                <button class="theme-toggle" id="themeToggleMobile" title="Alternar Tema" style="background: rgba(255,255,255,0.1); color: #fff; width: 50px; height: 50px; margin-right: 1.5rem;">
+                    <i class="fa-solid fa-sun"></i>
+                </button>
+                <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                <a href="#"><i class="fa-brands fa-facebook"></i></a>
+                <a href="#"><i class="fa-brands fa-tiktok"></i></a>
+            </div>
         </div>
     </header>
 
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="container hero-content">
+            <h1 class="reveal">O Brilho que os seus <br><span>Cachos</span> Merecem</h1>
+            <p class="reveal">Especialistas em texturas naturais. Descubra a melhor versão do seu cabelo com o nosso cuidado personalizado e produtos de alta performance.</p>
+            <div class="hero-btns reveal">
+                <a href="#booking" class="btn btn-primary">Marcar Atendimento</a>
+                <a href="#shop" class="btn btn-outline">Ver Produtos</a>
+            </div>
+        </div>
+        <div class="hero-image reveal">
+            <img src="assets/hero.png" alt="Mulher com cabelo cacheado deslumbrante">
+        </div>
+    </section>
 
+    <!-- Services Section -->
+    <section id="services" class="services">
+        <div class="container">
+            <div class="section-title reveal">
+                <h2>Nossos Serviços</h2>
+                <div class="divider"></div>
+                <p>Tratamentos especializados para cada tipo de curvatura.</p>
+            </div>
+            <div class="services-grid">
+                <div class="service-card reveal">
+                    <i class="fa-solid fa-scissors"></i>
+                    <h3>Corte a Seco</h3>
+                    <p>Técnica especializada para respeitar o encolhimento e a forma natural dos seus fios.</p>
+                </div>
+                <div class="service-card reveal">
+                    <i class="fa-solid fa-droplet"></i>
+                    <h3>Terapia Capilar</h3>
+                    <p>Hidratação profunda e nutrição intensa com óleos essenciais e ativos orgânicos.</p>
+                </div>
+                <div class="service-card reveal">
+                    <i class="fa-solid fa-wand-magic-sparkles"></i>
+                    <h3>Definição Premium</h3>
+                    <p>Finalização de longa duração que realça o movimento e elimina o excesso de frizz.</p>
+                </div>
+                <div class="service-card reveal">
+                    <i class="fa-solid fa-arrows-spin"></i>
+                    <h3>Consultoria de Transição</h3>
+                    <p>Acompanhamento completo para quem decidiu assumir a sua textura natural.</p>
+                </div>
+                <div class="service-card reveal">
+                    <i class="fa-solid fa-palette"></i>
+                    <h3>Coloração Consciente</h3>
+                    <p>Produtos sem amoníaco que preservam a saúde e a estrutura dos seus caracóis.</p>
+                </div>
+                <div class="service-card reveal">
+                    <i class="fa-solid fa-sun"></i>
+                    <h3>Mechas Iluminadas</h3>
+                    <p>Técnicas de luzes personalizadas que respeitam e realçam o seu padrão de curvatura.</p>
+                </div>
+                <div class="service-card reveal">
+                    <i class="fa-solid fa-soap"></i>
+                    <h3>Detox do Couro Cabeludo</h3>
+                    <p>Limpeza profunda e esfoliação para estimular o crescimento e a saúde capilar.</p>
+                </div>
+                <div class="service-card reveal">
+                    <i class="fa-solid fa-graduation-cap"></i>
+                    <h3>Workshop de Finalização</h3>
+                    <p>Aprenda as melhores técnicas para estilizar os seus cachos no dia-a-dia.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Shop Section -->
+    <section id="shop" class="shop">
+        <div class="container">
+            <div class="section-title reveal">
+                <h2>Glow Shop</h2>
+                <div class="divider"></div>
+                <p>Produtos de salão diretamente para a sua casa.</p>
+            </div>
+            <div class="shop-grid">
+                <div class="product-card reveal">
+                    <div class="product-image">
+                        <img src="assets/products.png" alt="Essential Glow">
+                    </div>
+                    <div class="product-info">
+                        <h3>Essential Glow</h3>
+                        <p>Brilho espelhado e definição máxima para todos os tipos de caracóis.</p>
+                        <div class="product-price">R$ 139,90</div>
+                        <button class="btn btn-primary add-to-cart">Adicionar</button>
+                    </div>
+                </div>
+                <div class="product-card reveal">
+                    <div class="product-image">
+                        <img src="assets/mask_oil.png" alt="Máscara de Nutrição">
+                    </div>
+                    <div class="product-info">
+                        <h3>Essential Glow Mask</h3>
+                        <p>Tratamento intensivo com manteiga de manga e óleos naturais.</p>
+                        <div class="product-price">R$ 158,00</div>
+                        <button class="btn btn-primary add-to-cart">Adicionar</button>
+                    </div>
+                </div>
+                <div class="product-card reveal">
+                    <div class="product-image">
+                        <img src="assets/shampoo_cond.png" alt="Shampoo & Condicionador">
+                    </div>
+                    <div class="product-info">
+                        <h3>Essential Glow Duo</h3>
+                        <p>Limpeza suave e hidratação diária para manter o brilho natural.</p>
+                        <div class="product-price">R$ 189,90</div>
+                        <button class="btn btn-primary add-to-cart">Adicionar</button>
+                    </div>
+                </div>
+                <div class="product-card reveal">
+                    <div class="product-image">
+                        <img src="assets/mask_oil.png" alt="Óleo Sparkle">
+                    </div>
+                    <div class="product-info">
+                        <h3>Essential Glow Oil</h3>
+                        <p>Toque final de seda com proteção térmica e filtro UV.</p>
+                        <div class="product-price">R$ 124,00</div>
+                        <button class="btn btn-primary add-to-cart">Adicionar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Booking Section -->
+    <section id="booking" class="booking">
+        <div class="container">
+            <div class="booking-wrapper reveal">
+                <div class="booking-header">
+                    <h2>Marcar Consulta</h2>
+                    <p>Escolha o melhor horário para cuidar de si.</p>
+                </div>
+                <form id="bookingForm" class="booking-form">
+                    <div class="form-group">
+                        <input type="text" id="name" placeholder="Nome Completo" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" id="email" placeholder="E-mail" required>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group half">
+                            <input type="tel" id="phone" placeholder="Celular" required>
+                        </div>
+                        <div class="form-group half">
+                            <select id="service" required>
+                                <option value="" disabled selected>Selecionar Serviço</option>
+                                <option value="corte">Corte a Seco</option>
+                                <option value="terapia">Terapia Capilar</option>
+                                <option value="definicao">Definição Premium</option>
+                                <option value="consultoria">Transição Capilar</option>
+                                <option value="coloracao">Coloração Consciente</option>
+                                <option value="mechas">Mechas Iluminadas</option>
+                                <option value="detox">Detox Capilar</option>
+                                <option value="workshop">Workshop de Estilo</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <input type="date" id="date" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary full-width">Enviar Pedido</button>
+                    <p class="form-status" id="formStatus"></p>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Reviews Section -->
+    <section id="reviews" class="reviews">
+        <div class="container">
+            <div class="section-title reveal">
+                <h2>O Brilho das Nossas Clientes</h2>
+                <div class="divider"></div>
+                <p>Histórias reais de quem redescobriu a beleza dos seus cachos.</p>
+            </div>
+            <div class="reviews-carousel">
+                <div class="reviews-grid" id="reviewsGrid">
+                    <!-- Review 1 -->
+                    <div class="review-card reveal">
+                        <div class="review-client">
+                            <div class="client-avatar">MO</div>
+                            <div class="client-details">
+                                <h4>Maria Oliveira</h4>
+                                <span class="review-date">12 Abr 2026</span>
+                            </div>
+                        </div>
+                        <div class="review-stars">
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                        </div>
+                        <div class="review-divider"></div>
+                        <p class="review-text">"O melhor salão para cacheadas que já visitei! O corte a seco respeitou totalmente o meu encolhimento e o resultado foi incrível."</p>
+                    </div>
+                    <!-- Review 2 -->
+                    <div class="review-card reveal">
+                        <div class="review-client">
+                            <div class="client-avatar">AS</div>
+                            <div class="client-details">
+                                <h4>Ana Santos</h4>
+                                <span class="review-date">28 Mar 2026</span>
+                            </div>
+                        </div>
+                        <div class="review-stars">
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                        </div>
+                        <div class="review-divider"></div>
+                        <p class="review-text">"Os produtos da Essential Glow salvaram o meu cabelo. Depois que comecei a usar o óleo capilar, meus cachos nunca tiveram tanto brilho."</p>
+                    </div>
+                    <!-- Review 3 -->
+                    <div class="review-card reveal">
+                        <div class="review-client">
+                            <div class="client-avatar">CP</div>
+                            <div class="client-details">
+                                <h4>Carla Pereira</h4>
+                                <span class="review-date">15 Mar 2026</span>
+                            </div>
+                        </div>
+                        <div class="review-stars">
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                        </div>
+                        <div class="review-divider"></div>
+                        <p class="review-text">"Atendimento maravilhoso e um ambiente super acolhedor. Redescobri minha autoestima com o cuidado da equipe."</p>
+                    </div>
+                    <!-- Review 4 -->
+                    <div class="review-card reveal">
+                        <div class="review-client">
+                            <div class="client-avatar">JC</div>
+                            <div class="client-details">
+                                <h4>Juliana Costa</h4>
+                                <span class="review-date">02 Mar 2026</span>
+                            </div>
+                        </div>
+                        <div class="review-stars">
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                        </div>
+                        <div class="review-divider"></div>
+                        <p class="review-text">"Simplesmente apaixonada pelo meu novo visual. O tratamento de terapia capilar deixou meu cabelo muito macio e com movimento."</p>
+                    </div>
+                    <!-- Review 5 -->
+                    <div class="review-card reveal">
+                        <div class="review-client">
+                            <div class="client-avatar">BL</div>
+                            <div class="client-details">
+                                <h4>Beatriz Lima</h4>
+                                <span class="review-date">14 Fev 2026</span>
+                            </div>
+                        </div>
+                        <div class="review-stars">
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                        </div>
+                        <div class="review-divider"></div>
+                        <p class="review-text">"Finalmente um lugar que entende de transição capilar. Me sinto muito mais segura e empoderada agora. Gratidão!"</p>
+                    </div>
+                    <!-- Review 6 -->
+                    <div class="review-card reveal">
+                        <div class="review-client">
+                            <div class="client-avatar">FR</div>
+                            <div class="client-details">
+                                <h4>Fernanda Rocha</h4>
+                                <span class="review-date">10 Jan 2026</span>
+                            </div>
+                        </div>
+                        <div class="review-stars">
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                        </div>
+                        <div class="review-divider"></div>
+                        <p class="review-text">"Melhor investimento que já fiz no meu cabelo. O resultado das mechas iluminadas ficou super natural e sem frizz."</p>
+                    </div>
+                </div>
+            </div>
+            <div class="reviews-pagination" id="reviewsPagination">
+                <span class="dot active" data-index="0"></span>
+                <span class="dot" data-index="1"></span>
+                <span class="dot" data-index="2"></span>
+                <span class="dot" data-index="3"></span>
+                <span class="dot" data-index="4"></span>
+                <span class="dot" data-index="5"></span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="footer" class="footer">
+        <div class="container footer-grid">
+            <div class="footer-brand">
+                <a href="#" class="logo">Curlys <span>Glow</span></a>
+                <p>O salão que celebra a identidade de cada cacho. <br>Amor em forma de cuidado.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#"><i class="fa-brands fa-facebook"></i></a>
+                    <a href="#"><i class="fa-brands fa-tiktok"></i></a>
+                </div>
+            </div>
+            <div class="footer-links">
+                <h4>Links Rápidos</h4>
+                <ul>
+                    <li><a href="#home">Início</a></li>
+                    <li><a href="#services">Serviços</a></li>
+                    <li><a href="#shop">Loja</a></li>
+                    <li><a href="#booking">Marcações</a></li>
+                </ul>
+            </div>
+            <div class="footer-contact">
+                <h4>Contato</h4>
+                <p><i class="fa-solid fa-location-dot"></i> Rua dos Cachos, 123, Lisboa</p>
+                <p><i class="fa-solid fa-phone"></i> +351 912 345 678</p>
+                <p><i class="fa-solid fa-envelope"></i> ola@curlysglow.pt</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Curlys Glow. Todos os direitos reservados. Design by Antigravity.</p>
+        </div>
+    </footer>
+
+    <!-- Side Cart -->
+    <div class="side-cart" id="sideCart">
+        <div class="cart-header">
+            <h3>O Seu Carrinho</h3>
+            <button class="close-cart" id="closeCart"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div class="cart-items" id="cartItemsList">
+            <!-- Items added via JS -->
+            <p class="empty-msg">O seu carrinho está vazio.</p>
+        </div>
+        <div class="cart-footer">
+            <div class="total-row">
+                <span>Total:</span>
+                <span id="cartTotal">R$ 0,00</span>
+            </div>
+            <button class="btn btn-primary full-width" id="checkoutBtn">Finalizar Compra</button>
+        </div>
+    </div>
+
+    <!-- Checkout Modal -->
+    <div class="modal-overlay" id="checkoutModal">
+        <div class="checkout-container">
+            <button class="close-modal" id="closeCheckout"><i class="fa-solid fa-xmark"></i></button>
+            <h2>Finalizar Pedido</h2>
+            
+            <div class="checkout-grid">
+                <!-- Delivery Options -->
+                <div class="checkout-section">
+                    <h3>1. Como deseja receber?</h3>
+                    <div class="option-toggle">
+                        <button class="toggle-btn active" data-type="retirar">Retirar no Salão</button>
+                        <button class="toggle-btn" data-type="entrega">Entrega em Casa</button>
+                    </div>
+                    
+                    <div id="pickupInfo" class="logistic-info">
+                        <p><i class="fa-solid fa-location-dot"></i> Rua dos Cachos, 123, Lisboa</p>
+                        <p class="hint">Escolha um horário para recolha após confirmação.</p>
+                    </div>
+                    
+                    <div id="deliveryForm" class="logistic-info hidden">
+                        <input type="text" placeholder="Endereço" id="address">
+                        <div class="form-row">
+                            <input type="text" placeholder="CEP" id="zip" class="half">
+                            <input type="text" placeholder="Cidade" id="city" class="half">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Payment Options -->
+                <div class="checkout-section">
+                    <h3>2. Forma de Pagamento</h3>
+                    <div class="payment-options">
+                        <label class="payment-card active">
+                            <input type="radio" name="payment" value="pix" checked>
+                            <i class="fa-solid fa-qrcode"></i> PIX
+                        </label>
+                        <label class="payment-card">
+                            <input type="radio" name="payment" value="card">
+                            <i class="fa-solid fa-credit-card"></i> Cartão
+                        </label>
+                        <label class="payment-card">
+                            <input type="radio" name="payment" value="apple">
+                            <i class="fa-brands fa-apple-pay"></i> Apple Pay
+                        </label>
+                    </div>
+                    
+                    <div class="nif-section">
+                        <input type="text" placeholder="NIF/CPF para fatura" id="nif">
+                    </div>
+                </div>
+
+                <!-- Order Summary -->
+                <div class="checkout-section summary">
+                    <h3>Resumo</h3>
+                    <div class="summary-details">
+                        <p>Subtotal: <span id="summarySubtotal">R$ 0,00</span></p>
+                        <p>Entrega: <span id="summaryShipping">Grátis</span></p>
+                        <div class="divider"></div>
+                        <p class="final-total">Total: <span id="summaryTotal">R$ 0,00</span></p>
+                    </div>
+                    <button class="btn btn-primary full-width" id="confirmPurchaseBtn">Confirmar e Pagar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
 </body>
-
 </html>
