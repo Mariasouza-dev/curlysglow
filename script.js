@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
         bookingForm.addEventListener('submit', (e) => {
             e.preventDefault();
             const submitBtn = bookingForm.querySelector('button');
-            submitBtn.textContent = 'A processar...';
+            submitBtn.textContent = 'Processando...';
             submitBtn.disabled = true;
             setTimeout(() => {
                 submitBtn.textContent = 'Enviar Pedido';
@@ -75,7 +75,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- New E-commerce Features ---
 
-    let cart = [];
+    const cart = [];
+    
+    // --- Service Price Reveal ---
+    const serviceCards = document.querySelectorAll('.service-card');
+    serviceCards.forEach(card => {
+        card.addEventListener('click', () => {
+            // Close other cards
+            serviceCards.forEach(c => {
+                if (c !== card) c.classList.remove('active');
+            });
+            // Toggle current card
+            card.classList.toggle('active');
+        });
+    });
+    
+    // --- Side Cart Logic ---
     const sideCart = document.getElementById('sideCart');
     const cartIcon = document.querySelector('.cart-icon');
     const closeCartBtn = document.getElementById('closeCart');
@@ -218,7 +233,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Confirm Purchase
     const confirmBtn = document.getElementById('confirmPurchaseBtn');
     confirmBtn.addEventListener('click', () => {
-        confirmBtn.textContent = 'A processar...';
+        confirmBtn.textContent = 'Processando...';
         confirmBtn.disabled = true;
 
         setTimeout(() => {
@@ -249,6 +264,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 const currentTheme = body.classList.contains('dark-theme') ? 'dark' : 'light';
                 localStorage.setItem('theme', currentTheme);
                 updateThemeIcons(currentTheme);
+                
+                // Add animation
+                btn.classList.add('animate');
+                setTimeout(() => btn.classList.remove('animate'), 800);
             });
         }
     });
