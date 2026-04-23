@@ -824,16 +824,27 @@ body.dark-theme .logo span {
     right: -100%;
     width: 100%;
     height: 100vh;
-    background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-light) 100%);
-    backdrop-filter: blur(15px);
-    -webkit-backdrop-filter: blur(15px);
-    z-index: 2000;
+    background: rgba(105, 32, 15, 0.98);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    z-index: 3000;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    transition: all 0.6s cubic-bezier(0.77, 0, 0.175, 1);
+    transition: all 0.8s cubic-bezier(0.77, 0, 0.175, 1);
     padding: 2rem;
+}
+
+.mobile-menu::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at center, rgba(212, 175, 55, 0.05) 0%, transparent 70%);
+    pointer-events: none;
 }
 
 .mobile-menu.active {
@@ -860,77 +871,84 @@ body.dark-theme .logo span {
 }
 
 .close-menu:hover {
-    transform: rotate(90deg);
+    transform: rotate(90deg) scale(1.2);
     color: var(--accent-color);
 }
 
 .mobile-nav-links {
     display: flex;
     flex-direction: column;
-    gap: 2rem;
+    gap: 1.5rem;
     text-align: center;
     margin-bottom: 4rem;
+    width: 100%;
 }
 
 .mobile-nav-links a {
-    color: var(--white);
+    color: var(--white-pure, #fff);
     font-family: 'Playfair Display', serif;
-    font-size: 2.5rem;
+    font-size: 2.8rem;
     font-weight: 600;
-    transition: var(--transition);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     opacity: 0;
-    transform: translateX(50px);
+    transform: translateY(40px);
     display: block;
+    text-decoration: none;
 }
 
 .mobile-menu.active .mobile-nav-links a {
     opacity: 1;
-    transform: translateX(0);
+    transform: translateY(0);
 }
 
 /* Staggered Delay for Links */
-.mobile-menu.active .mobile-nav-links a:nth-child(1) { transition-delay: 0.1s; }
-.mobile-menu.active .mobile-nav-links a:nth-child(2) { transition-delay: 0.2s; }
-.mobile-menu.active .mobile-nav-links a:nth-child(3) { transition-delay: 0.3s; }
-.mobile-menu.active .mobile-nav-links a:nth-child(4) { transition-delay: 0.4s; }
-.mobile-menu.active .mobile-nav-links a:nth-child(5) { transition-delay: 0.5s; }
+.mobile-menu.active .mobile-nav-links a:nth-child(1) { transition-delay: 0.2s; }
+.mobile-menu.active .mobile-nav-links a:nth-child(2) { transition-delay: 0.3s; }
+.mobile-menu.active .mobile-nav-links a:nth-child(3) { transition-delay: 0.4s; }
+.mobile-menu.active .mobile-nav-links a:nth-child(4) { transition-delay: 0.5s; }
+.mobile-menu.active .mobile-nav-links a:nth-child(5) { transition-delay: 0.6s; }
 
 .mobile-nav-links a:hover {
     color: var(--accent-color);
-    transform: scale(1.1) translateX(15px);
+    letter-spacing: 4px;
+    text-shadow: 0 0 15px rgba(212, 175, 55, 0.3);
 }
 
 .mobile-social {
     display: flex;
     gap: 2rem;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.6s ease 0.8s;
+}
+
+.mobile-menu.active .mobile-social {
+    opacity: 1;
+    transform: translateY(0);
 }
 
 .mobile-social a {
     color: var(--white-pure, #fff);
     font-size: 1.5rem;
-    width: 50px;
-    height: 50px;
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    width: 55px;
+    height: 55px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
     display: flex;
     justify-content: center;
     align-items: center;
     border-radius: 50%;
+    transition: var(--transition);
+    background: rgba(255, 255, 255, 0.05);
 }
 
-    // --- Service Price Reveal ---
-    const serviceCards = document.querySelectorAll('.service-card');
-    serviceCards.forEach(card => {
-        card.addEventListener('click', () => {
-            // Close other cards
-            serviceCards.forEach(c => {
-                if (c !== card) c.classList.remove('active');
-            });
-            // Toggle current card
-            card.classList.toggle('active');
-        });
-    });
+.mobile-social a:hover {
+    background: var(--accent-color);
+    color: var(--primary-color);
+    border-color: var(--accent-color);
+    transform: translateY(-5px) rotate(15deg);
+}
 
-    // --- Side Cart Logic ---Styles */
+/* Side Cart Styles */
 .side-cart {
     position: fixed;
     top: 0;
