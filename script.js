@@ -246,6 +246,93 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 2000);
     });
 
+    // --- Auth Flow ---
+    const authModal = document.getElementById('authModal');
+    const openAuthBtns = document.querySelectorAll('.open-auth-modal');
+    const closeAuthBtn = document.getElementById('closeAuth');
+    const authTabs = document.querySelectorAll('.auth-tabs .toggle-btn');
+    const nameGroup = document.getElementById('nameGroup');
+    const authSubmitBtn = document.getElementById('authSubmitBtn');
+    const authForm = document.getElementById('authForm');
+    const authStatus = document.getElementById('authStatus');
+
+    openAuthBtns.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            e.preventDefault();
+            authModal.classList.add('active');
+        });
+    });
+
+    closeAuthBtn.addEventListener('click', () => {
+        authModal.classList.remove('active');
+    });
+
+    authTabs.forEach(btn => {
+        btn.addEventListener('click', () => {
+            if (btn.classList.contains('active')) return;
+
+            authTabs.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            
+            if (btn.dataset.tab === 'register') {
+                nameGroup.classList.remove('hidden');
+                document.getElementById('authName').required = true;
+                authSubmitBtn.textContent = 'Cadastrar';
+            } else {
+                nameGroup.classList.add('hidden');
+                document.getElementById('authName').required = false;
+                authSubmitBtn.textContent = 'Entrar';
+            }
+        });
+    });
+
+    if (authForm) {
+        authForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const originalText = authSubmitBtn.textContent;
+            authSubmitBtn.textContent = 'Processando...';
+            authSubmitBtn.disabled = true;
+
+            setTimeout(() => {
+                authSubmitBtn.textContent = originalText;
+                authSubmitBtn.disabled = false;
+                
+                const isLogin = document.querySelector('.auth-tabs .toggle-btn.active').dataset.tab === 'login';
+                authStatus.textContent = isLogin ? 'Login efetuado com sucesso!' : 'Conta criada com sucesso!';
+                authStatus.style.color = '#28a745';
+                
+                setTimeout(() => {
+                    authStatus.textContent = '';
+                    authModal.classList.remove('active');
+                    authForm.reset();
+                    // Reset to login tab
+                    authTabs[0].click();
+                }, 2000);
+            }, 1500);
+        });
+    }
+
+    // --- Contact Form Logic (Simulation for Controlled Environments) ---
+    const contactForm = document.getElementById('contactForm');
+    const contactSubmitBtn = document.getElementById('contactSubmitBtn');
+
+    if (contactForm) {
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const originalText = contactSubmitBtn.textContent;
+            contactSubmitBtn.textContent = 'Enviando...';
+            contactSubmitBtn.disabled = true;
+
+            // Simula um tempo de rede de 1.5 segundos
+            setTimeout(() => {
+                alert("mensagem enviada com sucesso");
+                contactForm.reset();
+                contactSubmitBtn.textContent = originalText;
+                contactSubmitBtn.disabled = false;
+            }, 1500);
+        });
+    }
+
     // --- Theme Toggle Logic ---
     const themeToggles = [document.getElementById('themeToggle'), document.getElementById('themeToggleMobile')];
     const body = document.body;
@@ -303,6 +390,21 @@ document.addEventListener('DOMContentLoaded', () => {
                 dots.forEach(d => d.classList.remove('active'));
                 dot.classList.add('active');
             });
+        });
+    }
+
+    // --- Cookie Banner Logic ---
+    const cookieBanner = document.getElementById('cookieBanner');
+    const acceptCookiesBtn = document.getElementById('acceptCookies');
+
+    if (cookieBanner && acceptCookiesBtn) {
+        // Mostra o banner toda vez que a página carrega
+        setTimeout(() => {
+            cookieBanner.classList.add('show');
+        }, 1500);
+
+        acceptCookiesBtn.addEventListener('click', () => {
+            cookieBanner.classList.remove('show');
         });
     }
 });

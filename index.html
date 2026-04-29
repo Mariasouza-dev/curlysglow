@@ -23,9 +23,10 @@
                 <a href="#services">Serviços</a>
                 <a href="#shop">Loja</a>
                 <a href="#booking">Atendimento</a>
-                <a href="#footer">Contato</a>
+                <a href="#contact-form-section">Contato</a>
             </nav>
             <div class="nav-actions">
+                <a href="#" class="user-icon open-auth-modal" title="Login / Cadastro"><i class="fa-solid fa-user"></i></a>
                 <a href="#" class="cart-icon"><i class="fa-solid fa-bag-shopping"></i><span class="cart-count">0</span></a>
                 <button class="theme-toggle" id="themeToggle" title="Alternar Tema">
                     <i class="fa-solid fa-sun"></i>
@@ -41,15 +42,16 @@
                 <a href="#services">Serviços</a>
                 <a href="#shop">Loja</a>
                 <a href="#booking">Atendimento</a>
-                <a href="#footer">Contato</a>
+                <a href="#contact-form-section">Contato</a>
+                <a href="#" class="open-auth-modal">Minha Conta</a>
             </nav>
             <div class="mobile-social">
                 <button class="theme-toggle" id="themeToggleMobile" title="Alternar Tema" style="background: rgba(255,255,255,0.1); color: #fff; width: 50px; height: 50px; margin-right: 1.5rem;">
                     <i class="fa-solid fa-sun"></i>
                 </button>
-                <a href="#"><i class="fa-brands fa-instagram"></i></a>
-                <a href="#"><i class="fa-brands fa-facebook"></i></a>
-                <a href="#"><i class="fa-brands fa-tiktok"></i></a>
+                <a href="https://www.instagram.com/" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+                <a href="https://www.facebook.com/" target="_blank"><i class="fa-brands fa-facebook"></i></a>
+                <a href="https://www.tiktok.com/" target="_blank"><i class="fa-brands fa-tiktok"></i></a>
             </div>
         </div>
     </header>
@@ -373,6 +375,40 @@
         </div>
     </section>
 
+    <!-- Contact Form Section -->
+    <section id="contact-form-section" class="contact-section">
+        <div class="container">
+            <div class="section-title reveal">
+                <h2>Fale Conosco</h2>
+                <div class="divider"></div>
+                <p>Tem alguma dúvida ou gostaria de mais informações? Envie-nos uma mensagem.</p>
+            </div>
+            <div class="booking-wrapper reveal" style="background: var(--bg-color); box-shadow: var(--shadow);">
+                <form id="contactForm" class="booking-form" action="https://formsubmit.co/ajax/biancaamorim.veleiros@gmail.com" method="POST">
+                    <input type="hidden" name="_captcha" value="false">
+                    <div class="form-group icon-input">
+                        <i class="fa-solid fa-user"></i>
+                        <input type="text" name="name" id="contactName" placeholder="Nome Completo" required>
+                    </div>
+                    <div class="form-group icon-input">
+                        <i class="fa-solid fa-envelope"></i>
+                        <input type="email" name="email" id="contactEmail" placeholder="E-mail" required>
+                    </div>
+                    <div class="form-group icon-input">
+                        <i class="fa-solid fa-tag"></i>
+                        <input type="text" name="_subject" id="contactSubject" placeholder="Assunto" required>
+                    </div>
+                    <div class="form-group icon-input align-top">
+                        <i class="fa-solid fa-message"></i>
+                        <textarea name="message" id="contactMessage" rows="5" placeholder="Sua Mensagem" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary full-width" id="contactSubmitBtn">Enviar Mensagem</button>
+                    <p class="form-status" id="contactStatus"></p>
+                </form>
+            </div>
+        </div>
+    </section>
+
     <!-- Footer -->
     <footer id="footer" class="footer">
         <div class="container footer-grid">
@@ -380,9 +416,9 @@
                 <a href="#" class="logo">Curlys <span>Glow</span></a>
                 <p>O salão que celebra a identidade de cada cacho. <br>Amor em forma de cuidado.</p>
                 <div class="social-links">
-                    <a href="#"><i class="fa-brands fa-instagram"></i></a>
-                    <a href="#"><i class="fa-brands fa-facebook"></i></a>
-                    <a href="#"><i class="fa-brands fa-tiktok"></i></a>
+                    <a href="https://www.instagram.com/" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="https://www.facebook.com/" target="_blank"><i class="fa-brands fa-facebook"></i></a>
+                    <a href="https://www.tiktok.com/" target="_blank"><i class="fa-brands fa-tiktok"></i></a>
                 </div>
             </div>
             <div class="footer-links">
@@ -493,10 +529,52 @@
         </div>
     </div>
 
+    <!-- Auth Modal -->
+    <div class="modal-overlay" id="authModal">
+        <div class="auth-container">
+            <button class="close-modal" id="closeAuth"><i class="fa-solid fa-xmark"></i></button>
+            <div class="auth-header">
+                <h2>Bem-vindo(a)</h2>
+                <div class="auth-tabs option-toggle">
+                    <button class="toggle-btn active" data-tab="login">Login</button>
+                    <button class="toggle-btn" data-tab="register">Cadastro</button>
+                </div>
+            </div>
+            
+            <form id="authForm" class="booking-form">
+                <div class="form-group icon-input hidden" id="nameGroup">
+                    <i class="fa-solid fa-user"></i>
+                    <input type="text" id="authName" placeholder="Nome Completo">
+                </div>
+                <div class="form-group icon-input">
+                    <i class="fa-solid fa-envelope"></i>
+                    <input type="email" id="authEmail" placeholder="E-mail" required>
+                </div>
+                <div class="form-group icon-input">
+                    <i class="fa-solid fa-lock"></i>
+                    <input type="password" id="authPassword" placeholder="Senha" required>
+                </div>
+                <button type="submit" class="btn btn-primary full-width" id="authSubmitBtn">Entrar</button>
+                <p class="form-status" id="authStatus"></p>
+            </form>
+        </div>
+    </div>
+
     <!-- Floating WhatsApp Button -->
     <a href="https://wa.me/5511912345678" class="whatsapp-float" target="_blank" title="Falar no WhatsApp">
         <i class="fa-brands fa-whatsapp"></i>
     </a>
+
+    <!-- Cookie Banner -->
+    <div id="cookieBanner" class="cookie-banner">
+        <div class="cookie-content">
+            <i class="fa-solid fa-cookie-bite"></i>
+            <p>Utilizamos cookies para melhorar a sua experiência e personalizar o nosso conteúdo. Ao continuar a navegar, você concorda com a nossa política.</p>
+        </div>
+        <div class="cookie-btns">
+            <button id="acceptCookies" class="btn btn-primary">Aceitar</button>
+        </div>
+    </div>
 
     <script src="script.js"></script>
 </body>
