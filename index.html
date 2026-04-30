@@ -38,12 +38,12 @@
         <div class="mobile-menu" id="mobileMenu">
             <button class="close-menu" id="closeMenu"><i class="fa-solid fa-xmark"></i></button>
             <nav class="mobile-nav-links">
-                <a href="#home">Início</a>
-                <a href="#services">Serviços</a>
-                <a href="#shop">Loja</a>
-                <a href="#booking">Atendimento</a>
-                <a href="#contact-form-section">Contato</a>
-                <a href="#" class="open-auth-modal">Minha Conta</a>
+                <a href="#home" data-text="Início">Início</a>
+                <a href="#services" data-text="Serviços">Serviços</a>
+                <a href="#shop" data-text="Loja">Loja</a>
+                <a href="#booking" data-text="Atendimento">Atendimento</a>
+                <a href="#contact-form-section" data-text="Contato">Contato</a>
+                <a href="#" class="open-auth-modal" data-text="Conta">Minha Conta</a>
             </nav>
             <div class="mobile-social">
                 <button class="theme-toggle" id="themeToggleMobile" title="Alternar Tema" style="background: rgba(255,255,255,0.1); color: #fff; width: 50px; height: 50px; margin-right: 1.5rem;">
@@ -59,74 +59,84 @@
     <!-- Hero Section -->
     <section id="home" class="hero">
         <div class="container hero-content">
-            <h1 class="reveal">O Brilho que os seus <br><span>Cachos</span> Merecem</h1>
-            <p class="reveal">Especialistas em texturas naturais. Descubra a melhor versão do seu cabelo com o nosso cuidado personalizado e produtos de alta performance.</p>
+            <h1 class="reveal">O Brilho Que Define <br><span>Sua Essência</span></h1>
+            <p class="reveal">Curadoria exclusiva para cabelos com curvatura. No Curlys Glow, elevamos a textura natural ao status de arte através de tratamentos de luxo e precisão técnica.</p>
             <div class="hero-btns reveal">
-                <a href="#booking" class="btn btn-primary">Marcar Atendimento</a>
-                <a href="#shop" class="btn btn-outline">Ver Produtos</a>
+                <a href="#booking" class="btn btn-primary">Agendar Consultoria</a>
+                <a href="#shop" class="btn btn-outline">Explore a Loja</a>
             </div>
         </div>
         <div class="hero-image reveal">
-            <img src="assets/hero.png" alt="Mulher com cabelo cacheado deslumbrante">
+            <img src="assets/hero.png" alt="Editorial: Mulher com cachos definidos e luxuosos">
         </div>
     </section>
+
+
 
     <!-- Services Section -->
     <section id="services" class="services">
         <div class="container">
-            <div class="section-title reveal">
+            <div class="section-title">
                 <h2>Nossos Serviços</h2>
                 <div class="divider"></div>
                 <p>Tratamentos especializados para cada tipo de curvatura.</p>
             </div>
             <div class="services-grid">
-                <div class="service-card reveal">
+                <div class="service-card">
                     <i class="fa-solid fa-scissors"></i>
                     <h3>Corte a Seco</h3>
                     <p>Técnica especializada para respeitar o encolhimento e a forma natural dos seus fios.</p>
                     <div class="service-price">A partir de R$ 180,00</div>
+
                 </div>
-                <div class="service-card reveal">
+                <div class="service-card">
                     <i class="fa-solid fa-droplet"></i>
                     <h3>Terapia Capilar</h3>
                     <p>Hidratação profunda e nutrição intensa com óleos essenciais e ativos orgânicos.</p>
                     <div class="service-price">A partir de R$ 220,00</div>
+
                 </div>
-                <div class="service-card reveal">
+                <div class="service-card">
                     <i class="fa-solid fa-wand-magic-sparkles"></i>
                     <h3>Definição Premium</h3>
                     <p>Finalização de longa duração que realça o movemento e elimina o excesso de frizz.</p>
                     <div class="service-price">A partir de R$ 130,00</div>
+
                 </div>
-                <div class="service-card reveal">
+                <div class="service-card">
                     <i class="fa-solid fa-arrows-spin"></i>
                     <h3>Consultoria de Transição</h3>
                     <p>Acompanhamento completo para quem decidiu assumir a sua textura natural.</p>
                     <div class="service-price">R$ 150,00 / sessão</div>
+
                 </div>
-                <div class="service-card reveal">
+                <div class="service-card">
                     <i class="fa-solid fa-palette"></i>
                     <h3>Coloração Consciente</h3>
                     <p>Produtos sem amoníaco que preservam a saúde e a estrutura dos seus caracóis.</p>
                     <div class="service-price">Sob Consulta</div>
+
                 </div>
-                <div class="service-card reveal">
+                <div class="service-card">
                     <i class="fa-solid fa-sun"></i>
                     <h3>Mechas Iluminadas</h3>
                     <p>Técnicas de luzes personalizadas que respeitam e realçam o seu padrão de curvatura.</p>
                     <div class="service-price">Sob Consulta</div>
+
                 </div>
-                <div class="service-card reveal">
+                <div class="service-card">
                     <i class="fa-solid fa-soap"></i>
                     <h3>Detox do Couro Cabeludo</h3>
                     <p>Limpeza profunda e esfoliação para estimular o crescimento e a saúde capilar.</p>
                     <div class="service-price">R$ 140,00</div>
+
                 </div>
-                <div class="service-card reveal">
+                <div class="service-card">
                     <i class="fa-solid fa-graduation-cap"></i>
                     <h3>Workshop de Finalização</h3>
                     <p>Aprenda as melhores técnicas para estilizar os seus cachos no dia-a-dia.</p>
                     <div class="service-price">R$ 250,00</div>
+
                 </div>
             </div>
         </div>
@@ -138,7 +148,7 @@
             <div class="section-title reveal">
                 <h2>Glow Shop</h2>
                 <div class="divider"></div>
-                <p>Produtos de salão diretamente para a sua casa.</p>
+                <p>Uma seleção rigorosa de ativos para a manutenção do brilho absoluto.</p>
             </div>
             <div class="shop-grid">
                 <div class="product-card reveal">
@@ -432,7 +442,7 @@
             </div>
             <div class="footer-contact">
                 <h4>Contato</h4>
-                <p><i class="fa-solid fa-location-dot"></i> Rua dos Cachos, 123, São Paulo</p>
+                <p><i class="fa-solid fa-location-dot"></i> <a href="https://www.google.com/maps/search/?api=1&query=Rua+dos+Cachos+123+São+Paulo" target="_blank" style="color: inherit; text-decoration: none;" class="address-link">Rua dos Cachos, 123, São Paulo</a></p>
                 <p><i class="fa-solid fa-phone"></i> <a href="tel:+5511912345678" style="color: inherit; text-decoration: none;">+55 (11) 91234-5678</a></p>
                 <p><i class="fa-brands fa-whatsapp"></i> <a href="https://wa.me/5511912345678" style="color: inherit; text-decoration: none;" target="_blank">WhatsApp</a></p>
                 <p><i class="fa-solid fa-envelope"></i> <a href="mailto:ola@curlysglow.com.br" style="color: inherit; text-decoration: none;">ola@curlysglow.com.br</a></p>
@@ -542,17 +552,27 @@
             </div>
             
             <form id="authForm" class="booking-form">
-                <div class="form-group icon-input hidden" id="nameGroup">
-                    <i class="fa-solid fa-user"></i>
-                    <input type="text" id="authName" placeholder="Nome Completo">
+                <div class="form-group" id="nameGroup" style="display: none;">
+                    <label for="authName" id="nameLabel">Nome Completo</label>
+                    <div class="icon-input">
+                        <i class="fa-solid fa-user"></i>
+                        <input type="text" id="authName" placeholder="Seu nome">
+                    </div>
                 </div>
-                <div class="form-group icon-input">
-                    <i class="fa-solid fa-envelope"></i>
-                    <input type="email" id="authEmail" placeholder="E-mail" required>
+                <div class="form-group">
+                    <label for="authEmail" id="emailLabel" style="display: none;">E-mail</label>
+                    <div class="icon-input">
+                        <i class="fa-solid fa-envelope"></i>
+                        <input type="email" id="authEmail" placeholder="E-mail" required>
+                    </div>
                 </div>
-                <div class="form-group icon-input">
-                    <i class="fa-solid fa-lock"></i>
-                    <input type="password" id="authPassword" placeholder="Senha" required>
+                <div class="form-group">
+                    <label for="authPassword" id="passLabel" style="display: none;">Senha</label>
+                    <div class="icon-input">
+                        <i class="fa-solid fa-lock"></i>
+                        <input type="password" id="authPassword" placeholder="Senha" required>
+                    </div>
+                    <a href="#" id="forgotPassBtn" class="forgot-pass-link" style="font-size: 0.8rem; color: var(--accent-color); text-decoration: none; display: block; text-align: right; margin-top: 0.8rem;">Esqueceu a senha?</a>
                 </div>
                 <button type="submit" class="btn btn-primary full-width" id="authSubmitBtn">Entrar</button>
                 <p class="form-status" id="authStatus"></p>

@@ -13,6 +13,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Reveal Animations on Scroll
     const revealElements = document.querySelectorAll('.reveal');
+    
+    // Auto-stagger logic for children of grids
+    const containers = document.querySelectorAll('.services-grid, .shop-grid, .reviews-grid');
+    containers.forEach(container => {
+        const children = container.querySelectorAll('.reveal');
+        children.forEach((child, index) => {
+            child.style.transitionDelay = `${index * 0.1}s`;
+        });
+    });
+
     const revealObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
@@ -20,7 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 revealObserver.unobserve(entry.target);
             }
         });
-    }, { threshold: 0.15 });
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
     revealElements.forEach(el => revealObserver.observe(el));
 
     // Booking Form Simulation
@@ -77,18 +87,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const cart = [];
     
-    // --- Service Price Reveal ---
-    const serviceCards = document.querySelectorAll('.service-card');
-    serviceCards.forEach(card => {
-        card.addEventListener('click', () => {
-            // Close other cards
-            serviceCards.forEach(c => {
-                if (c !== card) c.classList.remove('active');
-            });
-            // Toggle current card
-            card.classList.toggle('active');
-        });
-    });
+
     
     // --- Side Cart Logic ---
     const sideCart = document.getElementById('sideCart');
@@ -274,13 +273,31 @@ document.addEventListener('DOMContentLoaded', () => {
             authTabs.forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
             
+            const emailInput = document.getElementById('authEmail');
+            const passInput = document.getElementById('authPassword');
+            const emailLabel = document.getElementById('emailLabel');
+            const passLabel = document.getElementById('passLabel');
+            const nameGroup = document.getElementById('nameGroup');
+
+            const forgotPassBtn = document.getElementById('forgotPassBtn');
+
             if (btn.dataset.tab === 'register') {
-                nameGroup.classList.remove('hidden');
+                if (nameGroup) nameGroup.style.display = 'block';
                 document.getElementById('authName').required = true;
+                if (emailLabel) emailLabel.style.display = 'block';
+                if (passLabel) passLabel.style.display = 'block';
+                if (forgotPassBtn) forgotPassBtn.style.display = 'none';
+                emailInput.placeholder = "seu@email.com";
+                passInput.placeholder = "Crie uma senha";
                 authSubmitBtn.textContent = 'Cadastrar';
             } else {
-                nameGroup.classList.add('hidden');
+                if (nameGroup) nameGroup.style.display = 'none';
                 document.getElementById('authName').required = false;
+                if (emailLabel) emailLabel.style.display = 'none';
+                if (passLabel) passLabel.style.display = 'none';
+                if (forgotPassBtn) forgotPassBtn.style.display = 'block';
+                emailInput.placeholder = "E-mail";
+                passInput.placeholder = "Senha";
                 authSubmitBtn.textContent = 'Entrar';
             }
         });
@@ -405,6 +422,35 @@ document.addEventListener('DOMContentLoaded', () => {
 
         acceptCookiesBtn.addEventListener('click', () => {
             cookieBanner.classList.remove('show');
+        });
+    }
+    // --- Input Masks ---
+    const phoneInput = document.getElementById('phone');
+    if (phoneInput) {
+        phoneInput.addEventListener('input', (e) => {
+            let x = e.target.value.replace(/\D/g, '').match(/(\d{0,2})(\d{0,5})(\d{0,4})/);
+            e.target.value = !x[2] ? x[1] : '(' + x[1] + ') ' + x[2] + (x[3] ? '-' + x[3] : '');
+        });
+    }
+
+    const zipInput = document.getElementById('zip');
+    if (zipInput) {
+        zipInput.addEventListener('input', (e) => {
+            let x = e.target.value.replace(/\D/g, '').match(/(\d{0,5})(\d{0,3})/);
+            e.target.value = !x[2] ? x[1] : x[1] + '-' + x[2];
+        });
+    }
+
+    const forgotPassBtn = document.getElementById('forgotPassBtn');
+    if (forgotPassBtn) {
+        forgotPassBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            const email = document.getElementById('authEmail').value;
+            if (email) {
+                alert(`Um link de recuperação de senha foi enviado para: ${email}`);
+            } else {
+                alert('Por favor, preencha o seu e-mail antes de solicitar a recuperação.');
+            }
         });
     }
 });
