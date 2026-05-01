@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const revealElements = document.querySelectorAll('.reveal');
     
     // Auto-stagger logic for children of grids
-    const containers = document.querySelectorAll('.services-grid, .shop-grid, .reviews-grid');
+    const containers = document.querySelectorAll('.services-grid, .shop-grid');
     containers.forEach(container => {
         const children = container.querySelectorAll('.reveal');
         children.forEach((child, index) => {
@@ -221,13 +221,148 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Payment Card Selection
     const paymentCards = document.querySelectorAll('.payment-card');
+    const pixDetails = document.getElementById('pixDetails');
+    const cardDetails = document.getElementById('cardDetails');
+    const copyPixBtn = document.getElementById('copyPixBtn');
+    const pixCodeInput = document.getElementById('pixCode');
+
     paymentCards.forEach(card => {
         card.addEventListener('click', () => {
             paymentCards.forEach(c => c.classList.remove('active'));
             card.classList.add('active');
-            card.querySelector('input').checked = true;
+            const radio = card.querySelector('input');
+            radio.checked = true;
+
+            // Show/Hide Payment Details
+            if (pixDetails && cardDetails) {
+                if (radio.value === 'pix') {
+                    pixDetails.style.display = 'flex';
+                    cardDetails.style.display = 'none';
+                } else if (radio.value === 'card') {
+                    pixDetails.style.display = 'none';
+                    cardDetails.style.display = 'flex';
+                    updateInstallments(); // Update installments whenever card is selected
+                } else {
+                    pixDetails.style.display = 'none';
+                    cardDetails.style.display = 'none';
+                }
+            }
         });
     });
+
+    // Interactive Card Logic
+    const cardNumberInput = document.getElementById('cardNumber');
+    const cardNameInput = document.getElementById('cardName');
+    const cardExpiryInput = document.getElementById('cardExpiry');
+    const cardCVVInput = document.getElementById('cardCVV');
+    const creditCardVisual = document.getElementById('creditCard');
+
+    // Display elements on the card
+    const cardNumberDisplay = document.querySelector('.card-number-display');
+    const cardNameDisplay = document.querySelector('.card-name-display');
+    const cardExpiryDisplay = document.querySelector('.card-expiry-display');
+    const cardCVVDisplay = document.querySelector('.card-cvv-display');
+
+    // Card Number Mask & Update
+    if (cardNumberInput) {
+        cardNumberInput.addEventListener('input', (e) => {
+            let value = e.target.value.replace(/\D/g, '');
+            value = value.match(/.{1,4}/g)?.join(' ') || '';
+            e.target.value = value;
+            cardNumberDisplay.textContent = value || '•••• •••• •••• ••••';
+        });
+    }
+
+    // Card Name Update
+    if (cardNameInput) {
+        cardNameInput.addEventListener('input', (e) => {
+            const value = e.target.value.toUpperCase();
+            cardNameDisplay.textContent = value || 'NOME NO CARTÃO';
+        });
+    }
+
+    // Card Expiry Mask & Update
+    if (cardExpiryInput) {
+        cardExpiryInput.addEventListener('input', (e) => {
+            let value = e.target.value.replace(/\D/g, '');
+            if (value.length > 2) {
+                value = value.substring(0, 2) + '/' + value.substring(2, 4);
+            }
+            e.target.value = value;
+            cardExpiryDisplay.textContent = value || 'MM/AA';
+        });
+    }
+
+    // Card CVV Update & Flip
+    if (cardCVVInput) {
+        cardCVVInput.addEventListener('input', (e) => {
+            cardCVVDisplay.textContent = e.target.value || '•••';
+        });
+        cardCVVInput.addEventListener('focus', () => {
+            creditCardVisual.classList.add('flipped');
+        });
+        cardCVVInput.addEventListener('blur', () => {
+            creditCardVisual.classList.remove('flipped');
+        });
+    }
+
+    // Credit/Debit Toggle
+    const typeBtns = document.querySelectorAll('.type-btn');
+    const installmentsArea = document.getElementById('installmentsArea');
+
+    typeBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            typeBtns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            
+            // Toggle installments visibility based on type (Credit only)
+            if (btn.dataset.cardType === 'credit') {
+                updateInstallments();
+            } else {
+                installmentsArea.classList.add('hidden');
+            }
+        });
+    });
+
+    function updateInstallments() {
+        const subtotal = cart.reduce((acc, item) => acc + (item.price * item.qty), 0);
+        const shipping = summaryShipping.textContent === 'Grátis' ? 0 : 15;
+        const total = subtotal + shipping;
+        const installmentsSelect = document.getElementById('installments');
+
+        if (total >= 100) {
+            installmentsArea.classList.remove('hidden');
+            installmentsSelect.innerHTML = '';
+            
+            for (let i = 1; i <= 12; i++) {
+                const installmentValue = (total / i).toFixed(2).replace('.', ',');
+                const option = document.createElement('option');
+                option.value = i;
+                option.textContent = `${i}x de R$ ${installmentValue} ${i === 1 ? 'à vista' : 'sem juros'}`;
+                installmentsSelect.appendChild(option);
+            }
+        } else {
+            installmentsArea.classList.add('hidden');
+        }
+    }
+
+    // Copy PIX Code Logic
+    if (copyPixBtn && pixCodeInput) {
+        copyPixBtn.addEventListener('click', () => {
+            pixCodeInput.select();
+            pixCodeInput.setSelectionRange(0, 99999); // For mobile devices
+            navigator.clipboard.writeText(pixCodeInput.value).then(() => {
+                const originalIcon = copyPixBtn.innerHTML;
+                copyPixBtn.innerHTML = '<i class="fa-solid fa-check"></i>';
+                copyPixBtn.classList.add('copied');
+                
+                setTimeout(() => {
+                    copyPixBtn.innerHTML = originalIcon;
+                    copyPixBtn.classList.remove('copied');
+                }, 2000);
+            });
+        });
+    }
 
     // Confirm Purchase
     const confirmBtn = document.getElementById('confirmPurchaseBtn');
@@ -250,58 +385,74 @@ document.addEventListener('DOMContentLoaded', () => {
     const openAuthBtns = document.querySelectorAll('.open-auth-modal');
     const closeAuthBtn = document.getElementById('closeAuth');
     const authTabs = document.querySelectorAll('.auth-tabs .toggle-btn');
-    const nameGroup = document.getElementById('nameGroup');
-    const authSubmitBtn = document.getElementById('authSubmitBtn');
     const authForm = document.getElementById('authForm');
     const authStatus = document.getElementById('authStatus');
 
-    openAuthBtns.forEach(btn => {
-        btn.addEventListener('click', (e) => {
-            e.preventDefault();
-            authModal.classList.add('active');
+    if (openAuthBtns) {
+        openAuthBtns.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                authModal.classList.add('active');
+            });
         });
-    });
+    }
 
-    closeAuthBtn.addEventListener('click', () => {
-        authModal.classList.remove('active');
-    });
-
-    authTabs.forEach(btn => {
-        btn.addEventListener('click', () => {
-            if (btn.classList.contains('active')) return;
-
-            authTabs.forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-            
-            const emailInput = document.getElementById('authEmail');
-            const passInput = document.getElementById('authPassword');
-            const emailLabel = document.getElementById('emailLabel');
-            const passLabel = document.getElementById('passLabel');
-            const nameGroup = document.getElementById('nameGroup');
-
-            const forgotPassBtn = document.getElementById('forgotPassBtn');
-
-            if (btn.dataset.tab === 'register') {
-                if (nameGroup) nameGroup.style.display = 'block';
-                document.getElementById('authName').required = true;
-                if (emailLabel) emailLabel.style.display = 'block';
-                if (passLabel) passLabel.style.display = 'block';
-                if (forgotPassBtn) forgotPassBtn.style.display = 'none';
-                emailInput.placeholder = "seu@email.com";
-                passInput.placeholder = "Crie uma senha";
-                authSubmitBtn.textContent = 'Cadastrar';
-            } else {
-                if (nameGroup) nameGroup.style.display = 'none';
-                document.getElementById('authName').required = false;
-                if (emailLabel) emailLabel.style.display = 'none';
-                if (passLabel) passLabel.style.display = 'none';
-                if (forgotPassBtn) forgotPassBtn.style.display = 'block';
-                emailInput.placeholder = "E-mail";
-                passInput.placeholder = "Senha";
-                authSubmitBtn.textContent = 'Entrar';
-            }
+    if (closeAuthBtn) {
+        closeAuthBtn.addEventListener('click', () => {
+            authModal.classList.remove('active');
         });
-    });
+    }
+
+    if (authTabs.length > 0) {
+        authTabs.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const tab = btn.dataset.tab;
+                
+                // Update active tab button
+                authTabs.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                
+                // Elements to toggle
+                const nameGroup = document.getElementById('nameGroup');
+                const confirmPassGroup = document.getElementById('confirmPassGroup');
+                const forgotPassBtn = document.getElementById('forgotPassBtn');
+                const emailInput = document.getElementById('authEmail');
+                const passInput = document.getElementById('authPassword');
+                const confirmPassInput = document.getElementById('authConfirmPassword');
+                const authSubmitBtn = document.getElementById('authSubmitBtn');
+                const emailLabel = document.getElementById('emailLabel');
+                const passLabel = document.getElementById('passLabel');
+
+                if (tab === 'register') {
+                    if (nameGroup) nameGroup.style.display = 'block';
+                    if (confirmPassGroup) confirmPassGroup.style.display = 'block';
+                    if (forgotPassBtn) forgotPassBtn.style.display = 'none';
+                    if (emailLabel) emailLabel.style.display = 'block';
+                    if (passLabel) passLabel.style.display = 'block';
+                    
+                    if (emailInput) emailInput.placeholder = "seu@email.com";
+                    if (passInput) passInput.placeholder = "Crie uma senha";
+                    if (authSubmitBtn) authSubmitBtn.textContent = 'Cadastrar';
+                    
+                    document.getElementById('authName').required = true;
+                    if (confirmPassInput) confirmPassInput.required = true;
+                } else {
+                    if (nameGroup) nameGroup.style.display = 'none';
+                    if (confirmPassGroup) confirmPassGroup.style.display = 'none';
+                    if (forgotPassBtn) forgotPassBtn.style.display = 'block';
+                    if (emailLabel) emailLabel.style.display = 'none';
+                    if (passLabel) passLabel.style.display = 'none';
+                    
+                    if (emailInput) emailInput.placeholder = "Endereço de E-mail";
+                    if (passInput) passInput.placeholder = "Senha";
+                    if (authSubmitBtn) authSubmitBtn.textContent = 'Entrar';
+                    
+                    document.getElementById('authName').required = false;
+                    if (confirmPassInput) confirmPassInput.required = false;
+                }
+            });
+        });
+    }
 
     if (authForm) {
         authForm.addEventListener('submit', (e) => {
@@ -396,18 +547,30 @@ document.addEventListener('DOMContentLoaded', () => {
     const dots = document.querySelectorAll('.dot');
     
     if (reviewsGrid && dots.length > 0) {
-        dots.forEach(dot => {
+        let currentReviewIndex = 0;
+
+        const updateCarousel = () => {
+            if (!reviewsGrid.parentElement) return;
+            const carouselWidth = reviewsGrid.parentElement.offsetWidth;
+            const gap = 50; // O mesmo valor definido no CSS
+            const offset = currentReviewIndex * (carouselWidth + gap);
+            reviewsGrid.style.transform = `translateX(-${offset}px)`;
+            
+            // Update dots
+            dots.forEach((d, i) => {
+                d.classList.toggle('active', i == currentReviewIndex);
+            });
+        };
+
+        dots.forEach((dot, index) => {
             dot.addEventListener('click', () => {
-                const index = dot.dataset.index;
-                
-                // Move the grid (accounting for the 40px gap)
-                reviewsGrid.style.transform = `translateX(calc(-${index} * (100% + 40px)))`;
-                
-                // Update dots
-                dots.forEach(d => d.classList.remove('active'));
-                dot.classList.add('active');
+                currentReviewIndex = index;
+                updateCarousel();
             });
         });
+
+        // Garantir que o alinhamento se mantenha ao redimensionar a tela
+        window.addEventListener('resize', updateCarousel);
     }
 
     // --- Cookie Banner Logic ---
@@ -452,5 +615,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 alert('Por favor, preencha o seu e-mail antes de solicitar a recuperação.');
             }
         });
+    }
+
+    // Set min date for pickup
+    const pickupDateInput = document.getElementById('pickupDate');
+    if (pickupDateInput) {
+        const today = new Date().toISOString().split('T')[0];
+        pickupDateInput.setAttribute('min', today);
     }
 });

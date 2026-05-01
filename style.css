@@ -1244,14 +1244,49 @@ body.dark-theme .logo span {
 }
 
 .auth-container {
-    background: var(--white);
+    background: var(--card-bg);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
     width: 100%;
-    max-width: 450px;
+    max-width: 480px;
     max-height: 90vh;
     border-radius: 30px;
-    padding: 3rem;
+    padding: 3.5rem;
     position: relative;
     overflow-y: auto;
+    animation: authModalAppear 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5), 0 0 30px var(--accent-glow);
+}
+
+@keyframes authModalAppear {
+    from {
+        opacity: 0;
+        transform: translateY(30px) scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* Smooth field transitions */
+.form-group {
+    transition: all 0.4s ease;
+}
+
+#nameGroup, #confirmPassGroup {
+    animation: fieldSlideDown 0.4s ease-out;
+}
+
+@keyframes fieldSlideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .auth-header {
@@ -1343,8 +1378,10 @@ body.dark-theme .toggle-btn {
 
 .toggle-btn.active {
     background: var(--primary-color);
-    color: #fff; /* Texto sempre branco no botão ativo para máximo contraste */
+    color: #fff;
     border-color: var(--primary-color);
+    box-shadow: 0 0 20px var(--accent-glow);
+    transform: scale(1.05);
 }
 
 .toggle-btn:active {
@@ -1519,21 +1556,21 @@ body.dark-theme .payment-card.active {
 .reviews-grid {
     display: flex;
     transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
-    gap: 40px; /* Espaço generoso entre as avaliações */
+    gap: 50px; /* Espaço entre os cards */
 }
 
 .review-card {
-    flex: 0 0 100%;
+    flex: 0 0 100%; /* Cada card ocupa exatamente a largura do carrossel */
     background: var(--white);
-    padding: 3rem;
+    padding: 3rem 2rem; /* Aumentado o respiro lateral */
     border-radius: 25px;
     box-shadow: var(--shadow);
     transition: var(--transition);
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
-    max-width: 800px;
-    margin: 0 auto;
+    max-width: 850px; /* Largura máxima do conteúdo do card */
+    margin: 0 auto; /* Centraliza o conteúdo dentro do slot de 100% */
 }
 
 .review-card:hover {
@@ -1751,4 +1788,334 @@ body.dark-theme .cookie-banner {
     .cookie-btns button {
         width: 100%;
     }
+}
+
+/* Date and Select Styles for Checkout */
+input[type="date"] {
+    position: relative;
+    color-scheme: dark; /* Garante que o calendário do navegador venha em modo escuro */
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+    background: transparent;
+    bottom: 0;
+    color: transparent;
+    cursor: pointer;
+    height: auto;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: auto;
+}
+
+.logistic-info select, .logistic-info input[type="date"] {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #fff;
+    padding: 0.8rem;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    outline: none;
+    transition: var(--transition);
+}
+
+.logistic-info select:focus, .logistic-info input[type="date"]:focus {
+    border-color: var(--primary-color);
+    background: rgba(255, 255, 255, 0.1);
+}
+
+/* PIX Details Area */
+.pix-details-container {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 15px;
+    padding: 1.5rem;
+    margin-top: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    animation: slideDownFade 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.pix-details-container.hidden {
+    display: none;
+}
+
+@keyframes slideDownFade {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.qr-code-area {
+    text-align: center;
+}
+
+.qr-box {
+    width: 150px;
+    height: 150px;
+    background: #fff;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    margin: 0 auto 0.8rem;
+    overflow: hidden;
+}
+
+.qr-box i {
+    font-size: 100px;
+    color: #000;
+}
+
+.qr-scan-line {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: var(--primary-color);
+    box-shadow: 0 0 10px var(--primary-color);
+    animation: scanMove 2s linear infinite;
+}
+
+@keyframes scanMove {
+    0% { top: 0; }
+    50% { top: 100%; }
+    100% { top: 0; }
+}
+
+.qr-code-area p {
+    font-size: 0.9rem;
+    color: var(--text-color);
+    opacity: 0.8;
+}
+
+.pix-copy-area {
+    width: 100%;
+}
+
+.pix-copy-area label {
+    display: block;
+    font-size: 0.85rem;
+    margin-bottom: 0.5rem;
+    opacity: 0.7;
+}
+
+.copy-input-wrapper {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.copy-input-wrapper input {
+    flex: 1;
+    background: rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #fff;
+    padding: 0.8rem;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    font-family: monospace;
+}
+
+.copy-input-wrapper button {
+    background: var(--primary-color);
+    color: #fff;
+    border: none;
+    padding: 0 1.2rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.copy-input-wrapper button:hover {
+    background: var(--accent-color);
+    transform: translateY(-2px);
+}
+
+.copy-input-wrapper button.copied {
+    background: #28a745;
+}
+
+/* Credit Card Interactive Styles */
+.card-details-container {
+    margin-top: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    animation: slideDownFade 0.4s ease-out;
+}
+
+.card-visual-wrapper {
+    perspective: 1000px;
+    width: 100%;
+    max-width: 350px;
+    margin: 0 auto;
+}
+
+.credit-card {
+    width: 100%;
+    height: 200px;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    cursor: pointer;
+}
+
+.credit-card.flipped {
+    transform: rotateY(180deg);
+}
+
+.card-front, .card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    border-radius: 15px;
+    padding: 1.5rem;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+    box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+}
+
+.card-back {
+    transform: rotateY(180deg);
+    padding: 0;
+    justify-content: flex-start;
+}
+
+.card-chip {
+    width: 40px;
+    height: 30px;
+    background: linear-gradient(135deg, #f0d060, #a08020);
+    border-radius: 5px;
+}
+
+.card-brand {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    font-size: 2rem;
+}
+
+.card-number-display {
+    font-size: 1.4rem;
+    letter-spacing: 2px;
+    margin: 1rem 0;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.card-details-row {
+    display: flex;
+    justify-content: space-between;
+}
+
+.detail-item small {
+    display: block;
+    text-transform: uppercase;
+    font-size: 0.65rem;
+    opacity: 0.8;
+}
+
+.detail-item div {
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.magnetic-strip {
+    width: 100%;
+    height: 40px;
+    background: #000;
+    margin-top: 1.5rem;
+}
+
+.cvv-area {
+    margin: 1.5rem;
+    text-align: right;
+}
+
+.card-cvv-display {
+    background: #fff;
+    color: #000;
+    padding: 0.5rem;
+    border-radius: 4px;
+    display: inline-block;
+    width: 50px;
+    text-align: center;
+    font-weight: bold;
+}
+
+/* Card Form Inputs */
+.card-form-inputs {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.type-selector {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.type-btn {
+    flex: 1;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: var(--text-color);
+    padding: 0.8rem;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: none;
+    font-family: inherit;
+    font-size: 1rem;
+}
+
+.type-btn.active {
+    background: var(--primary-color);
+    color: #fff;
+    border-color: var(--primary-color);
+    box-shadow: 0 5px 15px rgba(105, 32, 15, 0.3);
+}
+
+.card-form-inputs input, .card-form-inputs select {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: var(--text-color);
+    padding: 1rem;
+    border-radius: 10px;
+    outline: none;
+    font-family: inherit;
+}
+
+.card-form-inputs .form-row {
+    display: flex;
+    gap: 1rem;
+}
+
+.card-form-inputs .form-row input {
+    flex: 1;
+}
+
+#installmentsArea {
+    animation: fadeIn 0.4s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
 }
