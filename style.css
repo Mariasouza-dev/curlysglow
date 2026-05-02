@@ -31,7 +31,7 @@ body.dark-theme {
     --primary-light: #ffbba9;
     --accent-color: #ffd24d;
     --text-color: #ece3df;
-    --text-muted: #9e8e8a;
+    --text-muted: #b5a4a0; /* Lighter for better contrast in dark mode */
     --bg-gradient: linear-gradient(135deg, #18110f 0%, #0d0807 100%);
     --bg-color: #0d0807;
     --white: #1f1614;
@@ -399,6 +399,11 @@ body.dark-theme .navbar.scrolled .mobile-menu-btn {
     color: var(--text-muted);
 }
 
+body.dark-theme .hero p {
+    color: var(--text-color);
+    opacity: 0.9;
+}
+
 .hero-btns {
     display: flex;
     gap: 1.5rem;
@@ -742,9 +747,36 @@ body.dark-theme textarea {
     color: var(--text-color);
 }
 
+/* Placeholder styling - made more evident as requested */
+input::placeholder, 
+textarea::placeholder {
+    color: var(--text-color) !important;
+    opacity: 1 !important;
+}
+
+/* Vendor prefixes for better compatibility */
+input::-webkit-input-placeholder,
+textarea::-webkit-input-placeholder {
+    color: var(--text-color) !important;
+    opacity: 1 !important;
+}
+
+input::-moz-placeholder,
+textarea::-moz-placeholder {
+    color: var(--text-color) !important;
+    opacity: 1 !important;
+}
+
+input:-ms-input-placeholder,
+textarea:-ms-input-placeholder {
+    color: var(--text-color) !important;
+    opacity: 1 !important;
+}
+
 body.dark-theme input::placeholder,
 body.dark-theme textarea::placeholder {
-    color: rgba(255, 255, 255, 0.3);
+    color: var(--text-color) !important;
+    opacity: 0.8 !important;
 }
 
 /* Fix for select dropdown visibility in dark mode */
@@ -817,13 +849,7 @@ body.dark-theme select:focus {
     font-size: 1.1rem;
 }
 
-::placeholder {
-    color: #a0a0a0;
-}
 
-body.dark-theme ::placeholder {
-    color: #5a5a5a;
-}
 
 .full-width {
     width: 100%;
@@ -1395,6 +1421,16 @@ body.dark-theme .toggle-btn {
     color: var(--text-color);
 }
 
+.logistic-info input, 
+.logistic-info select {
+    color: var(--text-color) !important;
+}
+
+/* Ensure date input text is visible */
+.logistic-info input[type="date"] {
+    color: var(--text-color) !important;
+}
+
 body.dark-theme .logistic-info {
     background: rgba(255,255,255,0.05);
 }
@@ -1946,29 +1982,58 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     background: #28a745;
 }
 
-/* Credit Card Interactive Styles */
+/* Credit Card Interactive Styles Refined */
 .card-details-container {
-    margin-top: 1.5rem;
-    display: flex;
+    margin-top: 2rem;
+    display: none; /* Controlled by JS */
     flex-direction: column;
     gap: 2rem;
-    animation: slideDownFade 0.4s ease-out;
+    animation: slideDownFade 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.type-selector-wrapper {
+    width: 100%;
+}
+
+.type-selector {
+    display: flex;
+    gap: 1rem;
+    background: rgba(0,0,0,0.05);
+    padding: 0.5rem;
+    border-radius: 12px;
+}
+
+body.dark-theme .type-selector {
+    background: rgba(255,255,255,0.05);
+}
+
+.card-details-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 3rem;
+    align-items: start;
+}
+
+@media (max-width: 850px) {
+    .card-details-grid {
+        grid-template-columns: 1fr;
+    }
 }
 
 .card-visual-wrapper {
     perspective: 1000px;
     width: 100%;
-    max-width: 350px;
-    margin: 0 auto;
+    position: sticky;
+    top: 20px;
 }
 
 .credit-card {
     width: 100%;
-    height: 200px;
+    height: 220px;
     position: relative;
     transform-style: preserve-3d;
     transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    cursor: pointer;
+    cursor: default;
 }
 
 .credit-card.flipped {
@@ -1980,142 +2045,164 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     width: 100%;
     height: 100%;
     backface-visibility: hidden;
-    border-radius: 15px;
-    padding: 1.5rem;
+    border-radius: 20px;
+    padding: 2rem;
     color: #fff;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
-    box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+    background: linear-gradient(135deg, #1a1412 0%, #5d1a0d 100%);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+    overflow: hidden;
+}
+
+.card-glass-effect {
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+    transform: rotate(45deg);
+    pointer-events: none;
 }
 
 .card-back {
     transform: rotateY(180deg);
     padding: 0;
     justify-content: flex-start;
+    background: linear-gradient(135deg, #2D241E 0%, #1a1412 100%);
 }
 
 .card-chip {
-    width: 40px;
-    height: 30px;
-    background: linear-gradient(135deg, #f0d060, #a08020);
-    border-radius: 5px;
+    width: 50px;
+    height: 38px;
+    background: linear-gradient(135deg, #d4af37, #f4d03f, #d4af37);
+    border-radius: 8px;
+    position: relative;
 }
 
 .card-brand {
     position: absolute;
-    top: 1.5rem;
-    right: 1.5rem;
-    font-size: 2rem;
+    top: 2rem;
+    right: 2rem;
+    font-size: 2.5rem;
+    opacity: 0.9;
 }
 
 .card-number-display {
-    font-size: 1.4rem;
-    letter-spacing: 2px;
-    margin: 1rem 0;
-    font-family: 'Courier New', Courier, monospace;
+    font-size: 1.5rem;
+    letter-spacing: 3px;
+    margin: 1.5rem 0;
+    font-family: 'OCR A Std', monospace;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.5);
 }
 
 .card-details-row {
     display: flex;
     justify-content: space-between;
+    align-items: flex-end;
 }
 
 .detail-item small {
     display: block;
     text-transform: uppercase;
-    font-size: 0.65rem;
-    opacity: 0.8;
+    font-size: 0.6rem;
+    opacity: 0.6;
+    margin-bottom: 4px;
+    letter-spacing: 1px;
 }
 
 .detail-item div {
-    font-size: 0.9rem;
+    font-size: 1rem;
     font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
 }
 
 .magnetic-strip {
     width: 100%;
-    height: 40px;
-    background: #000;
-    margin-top: 1.5rem;
+    height: 50px;
+    background: #111;
+    margin-top: 2rem;
 }
 
 .cvv-area {
-    margin: 1.5rem;
+    margin: 1.5rem 2rem;
     text-align: right;
 }
 
 .card-cvv-display {
     background: #fff;
     color: #000;
-    padding: 0.5rem;
+    padding: 0.6rem 1rem;
     border-radius: 4px;
     display: inline-block;
-    width: 50px;
+    width: 60px;
     text-align: center;
-    font-weight: bold;
+    font-weight: 700;
+    font-family: monospace;
+}
+
+.card-back-branding {
+    position: absolute;
+    bottom: 2rem;
+    left: 2rem;
+    font-size: 0.8rem;
+    opacity: 0.4;
+    font-style: italic;
 }
 
 /* Card Form Inputs */
 .card-form-inputs {
     display: flex;
     flex-direction: column;
-    gap: 1rem;
-}
-
-.type-selector {
-    display: flex;
-    gap: 1rem;
-    margin-bottom: 0.5rem;
+    gap: 1.2rem;
 }
 
 .type-btn {
     flex: 1;
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    color: var(--text-color);
-    padding: 0.8rem;
-    border-radius: 10px;
-    cursor: pointer;
-    transition: all 0.3s ease;
+    padding: 1rem;
     border: none;
-    font-family: inherit;
-    font-size: 1rem;
+    background: transparent;
+    color: var(--text-color);
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.8rem;
 }
 
 .type-btn.active {
-    background: var(--primary-color);
-    color: #fff;
-    border-color: var(--primary-color);
-    box-shadow: 0 5px 15px rgba(105, 32, 15, 0.3);
+    background: var(--white);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    color: var(--primary-color);
+}
+
+body.dark-theme .type-btn.active {
+    background: rgba(255,255,255,0.1);
+    color: var(--accent-color);
 }
 
 .card-form-inputs input, .card-form-inputs select {
-    width: 100%;
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    color: var(--text-color);
-    padding: 1rem;
-    border-radius: 10px;
-    outline: none;
-    font-family: inherit;
+    background: var(--white);
+    border: 1px solid rgba(0,0,0,0.08);
+    padding: 1.2rem;
+    border-radius: 12px;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
 }
 
-.card-form-inputs .form-row {
-    display: flex;
-    gap: 1rem;
+body.dark-theme .card-form-inputs input, 
+body.dark-theme .card-form-inputs select {
+    background: rgba(255,255,255,0.05);
+    border-color: rgba(255,255,255,0.1);
 }
 
-.card-form-inputs .form-row input {
-    flex: 1;
-}
-
-#installmentsArea {
-    animation: fadeIn 0.4s ease;
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
+.card-form-inputs input:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 4px rgba(93, 26, 13, 0.1);
 }

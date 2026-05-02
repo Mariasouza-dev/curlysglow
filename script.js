@@ -240,8 +240,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     cardDetails.style.display = 'none';
                 } else if (radio.value === 'card') {
                     pixDetails.style.display = 'none';
-                    cardDetails.style.display = 'flex';
-                    updateInstallments(); // Update installments whenever card is selected
+                    cardDetails.style.display = 'grid';
+                    updateInstallments(); 
                 } else {
                     pixDetails.style.display = 'none';
                     cardDetails.style.display = 'none';
