@@ -212,10 +212,72 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    // --- Coupon Logic ---
+    let appliedDiscount = 0; // valor fixo de desconto em reais
+
+    const VALID_COUPONS = {
+        'GLOW10':   0.10,
+        'CURLY20':  0.20,
+        'GLOWVIP':  0.30,
+    };
+
+    const applyCouponBtn = document.getElementById('applyCouponBtn');
+    const couponInput    = document.getElementById('couponInput');
+    const couponStatus   = document.getElementById('couponStatus');
+    const discountRow    = document.getElementById('discountRow');
+    const summaryDiscount = document.getElementById('summaryDiscount');
+
+    if (applyCouponBtn) {
+        applyCouponBtn.addEventListener('click', () => {
+            const code = couponInput.value.trim().toUpperCase();
+            const subtotal = cart.reduce((acc, item) => acc + (item.price * item.qty), 0);
+
+            if (!code) {
+                couponStatus.textContent = 'Por favor, insira um cupom.';
+                couponStatus.className = 'coupon-status error';
+                return;
+            }
+
+            if (VALID_COUPONS[code]) {
+                const pct = VALID_COUPONS[code];
+                appliedDiscount = subtotal * pct;
+
+                couponStatus.textContent = `✓ Cupom aplicado! ${(pct * 100).toFixed(0)}% de desconto.`;
+                couponStatus.className = 'coupon-status success';
+                applyCouponBtn.textContent = 'Aplicado ✓';
+                applyCouponBtn.disabled = true;
+                couponInput.disabled = true;
+            } else {
+                appliedDiscount = 0;
+                couponStatus.textContent = '✗ Cupom inválido ou expirado.';
+                couponStatus.className = 'coupon-status error';
+            }
+
+            updateFinalTotal();
+        });
+    }
+
     function updateFinalTotal() {
         const subtotal = cart.reduce((acc, item) => acc + (item.price * item.qty), 0);
         const shipping = summaryShipping.textContent === 'Grátis' ? 0 : 15;
-        const total = subtotal + shipping;
+
+        // Recalcular desconto com base no subtotal atual
+        const couponCode = couponInput ? couponInput.value.trim().toUpperCase() : '';
+        if (VALID_COUPONS[couponCode] && appliedDiscount > 0) {
+            appliedDiscount = subtotal * VALID_COUPONS[couponCode];
+        }
+
+        const total = Math.max(0, subtotal + shipping - appliedDiscount);
+
+        if (summaryDiscount && discountRow) {
+            if (appliedDiscount > 0) {
+                summaryDiscount.textContent = `- R$ ${appliedDiscount.toFixed(2).replace('.', ',')}`;
+                discountRow.classList.remove('hidden');
+            } else {
+                discountRow.classList.add('hidden');
+            }
+        }
+
         document.getElementById('summaryTotal').textContent = `R$ ${total.toFixed(2).replace('.', ',')}`;
     }
 

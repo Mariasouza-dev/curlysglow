@@ -86,7 +86,7 @@
     <section id="services" class="services">
         <div class="container">
             <div class="section-title">
-                <h2>Nossos Serviços</h2>
+                <h2 class="shimmer-title">Nossos Serviços</h2>
                 <div class="divider"></div>
                 <p>Tratamentos especializados para cada tipo de curvatura.</p>
             </div>
@@ -178,7 +178,7 @@
                     <div class="product-info">
                         <h3>Essential Glow Duo</h3>
                         <p>O combo perfeito: Máscara de hidratação intensa + Óleo finalizador para brilho extremo.</p>
-                        <div class="product-price">R$ 80,00</div>
+                        <div class="product-price">R$ 90,00</div>
                         <button class="btn btn-primary add-to-cart">Adicionar</button>
                     </div>
                 </div>
@@ -201,7 +201,18 @@
                     <div class="product-info">
                         <h3>Essential Glow Oil</h3>
                         <p>Toque final de seda com proteção térmica e filtro UV.</p>
-                        <div class="product-price">R$ 60,00</div>
+                        <div class="product-price">R$ 40,00</div>
+                        <button class="btn btn-primary add-to-cart">Adicionar</button>
+                    </div>
+                </div>
+                <div class="product-card reveal">
+                    <div class="product-image">
+                        <img src="assets/Creme de Pentear Essential.png" alt="Creme de Pentear Essential">
+                    </div>
+                    <div class="product-info">
+                        <h3>Creme de Pentear Essential</h3>
+                        <p>Definição leve e hidratação profunda para pentear e modelar os cachos com facilidade.</p>
+                        <div class="product-price">R$ 70,00</div>
                         <button class="btn btn-primary add-to-cart">Adicionar</button>
                     </div>
                 </div>
@@ -212,7 +223,7 @@
                     <div class="product-info">
                         <h3>Essential Mask</h3>
                         <p>Máscara de reparação ultra-profunda e nutrição extrema para cachos danificados.</p>
-                        <div class="product-price">R$ 120,00</div>
+                        <div class="product-price">R$ 50,00</div>
                         <button class="btn btn-primary add-to-cart">Adicionar</button>
                     </div>
                 </div>
@@ -686,9 +697,22 @@
                 <!-- Order Summary -->
                 <div class="checkout-section summary">
                     <h3>Resumo</h3>
+
+                    <!-- Cupom de Desconto -->
+                    <div class="coupon-section">
+                        <label class="coupon-label"><i class="fa-solid fa-tag"></i> Cupom de Desconto</label>
+                        <div class="coupon-input-row">
+                            <input type="text" id="couponInput" placeholder="Digite o cupom..." autocomplete="off">
+                            <button type="button" id="applyCouponBtn" class="btn btn-outline">Aplicar</button>
+                        </div>
+                        <p class="coupon-status" id="couponStatus"></p>
+                    </div>
+
                     <div class="summary-details">
                         <p>Subtotal: <span id="summarySubtotal">R$ 0,00</span></p>
                         <p>Entrega: <span id="summaryShipping">Grátis</span></p>
+                        <p id="discountRow" class="discount-row hidden">Desconto: <span id="summaryDiscount">- R$
+                                0,00</span></p>
                         <div class="divider"></div>
                         <p class="final-total">Total: <span id="summaryTotal">R$ 0,00</span></p>
                     </div>
