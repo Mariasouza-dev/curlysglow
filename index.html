@@ -155,7 +155,7 @@
     <section id="shop" class="shop">
         <div class="container">
             <div class="section-title reveal">
-                <h2>Glow Shop</h2>
+                <h2 class="shimmer-title">Glow Shop</h2>
                 <div class="divider"></div>
                 <p>Uma seleção rigorosa de ativos para a manutenção do brilho absoluto.</p>
             </div>
@@ -283,7 +283,7 @@
     <section id="reviews" class="reviews">
         <div class="container">
             <div class="section-title reveal">
-                <h2>O Brilho das Nossas Clientes</h2>
+                <h2 class="shimmer-title">O Brilho das Nossas Clientes</h2>
                 <div class="divider"></div>
                 <p>Histórias reais de quem redescobriu a beleza dos seus cachos.</p>
             </div>
@@ -486,7 +486,7 @@
                         href="https://www.google.com/maps/search/?api=1&query=Rua+dos+Cachos+123+São+Paulo"
                         target="_blank" style="color: inherit; text-decoration: none;" class="address-link">Rua dos
                         Cachos, 123, São Paulo</a></p>
-                <p><i class="fa-solid fa-clock"></i> Seg–Sáb: 8h às 20h</p>
+                <p><i class="fa-solid fa-clock"></i> Ter-Sáb: 08:00 às 22:00</p>
                 <p><i class="fa-solid fa-phone"></i> <a href="tel:+5511912345678"
                         style="color: inherit; text-decoration: none;">+55 (11) 91234-5678</a></p>
                 <p><i class="fa-brands fa-whatsapp"></i> <a href="https://wa.me/5511912345678"
@@ -526,67 +526,74 @@
             <h2>Finalizar Pedido</h2>
 
             <div class="checkout-grid">
-                <!-- Delivery Options -->
-                <div class="checkout-section">
-                    <h3>1. Como deseja receber?</h3>
-                    <div class="option-toggle">
-                        <button class="toggle-btn active" data-type="retirar">Retirar no Salão</button>
-                        <button class="toggle-btn" data-type="entrega">Entrega em Casa</button>
-                    </div>
+                <!-- Left Column: Steps -->
+                <div class="checkout-steps-container">
+                    
+                    <!-- Step 1: Delivery Options -->
+                    <div class="checkout-section" id="checkoutStep1">
+                        <h3>1. Como deseja receber?</h3>
+                        <div class="option-toggle">
+                            <button class="toggle-btn active" data-type="retirar">Retirar no Salão</button>
+                            <button class="toggle-btn" data-type="entrega">Entrega em Casa</button>
+                        </div>
 
-                    <div id="pickupInfo" class="logistic-info">
-                        <p><i class="fa-solid fa-location-dot"></i> Rua dos Cachos, 123, São Paulo</p>
-                        <div class="form-row" style="margin-top: 1rem;">
-                            <div class="form-group half">
-                                <label for="pickupDate"
-                                    style="font-size: 0.8rem; opacity: 0.8; display: block; margin-bottom: 5px;">Data de
-                                    Retirada</label>
-                                <input type="date" id="pickupDate">
+                        <div id="pickupInfo" class="logistic-info">
+                            <p><i class="fa-solid fa-location-dot"></i> Rua dos Cachos, 123, São Paulo</p>
+                            <div class="form-row" style="margin-top: 1rem;">
+                                <div class="form-group half">
+                                    <label for="pickupDate"
+                                        style="font-size: 0.8rem; opacity: 0.8; display: block; margin-bottom: 5px;">Data de
+                                        Retirada</label>
+                                    <input type="date" id="pickupDate">
+                                </div>
+                                <div class="form-group half">
+                                    <label for="pickupTime"
+                                        style="font-size: 0.8rem; opacity: 0.8; display: block; margin-bottom: 5px;">Horário</label>
+                                    <select id="pickupTime">
+                                        <option value="">Selecionar...</option>
+                                        <option value="08:00">08:00</option>
+                                        <option value="09:00">09:00</option>
+                                        <option value="10:00">10:00</option>
+                                        <option value="11:00">11:00</option>
+                                        <option value="12:00">12:00</option>
+                                        <option value="13:00">13:00</option>
+                                        <option value="14:00">14:00</option>
+                                        <option value="15:00">15:00</option>
+                                        <option value="16:00">16:00</option>
+                                        <option value="17:00">17:00</option>
+                                        <option value="18:00">18:00</option>
+                                        <option value="19:00">19:00</option>
+                                        <option value="20:00">20:00</option>
+                                        <option value="21:00">21:00</option>
+                                        <option value="22:00">22:00</option>
+                                    </select>
+                                </div>
                             </div>
-                            <div class="form-group half">
-                                <label for="pickupTime"
-                                    style="font-size: 0.8rem; opacity: 0.8; display: block; margin-bottom: 5px;">Horário</label>
-                                <select id="pickupTime">
-                                    <option value="">Selecionar...</option>
-                                    <option value="08:00">08:00</option>
-                                    <option value="09:00">09:00</option>
-                                    <option value="10:00">10:00</option>
-                                    <option value="11:00">11:00</option>
-                                    <option value="12:00">12:00</option>
-                                    <option value="13:00">13:00</option>
-                                    <option value="14:00">14:00</option>
-                                    <option value="15:00">15:00</option>
-                                    <option value="16:00">16:00</option>
-                                    <option value="17:00">17:00</option>
-                                    <option value="18:00">18:00</option>
-                                    <option value="19:00">19:00</option>
-                                    <option value="20:00">20:00</option>
-                                </select>
+                            <p class="hint" style="margin-top: 0.5rem;">Funcionamento: Ter-Sáb, 08:00 às 22:00.</p>
+                        </div>
+
+                        <div id="deliveryForm" class="logistic-info hidden">
+                            <div class="form-group icon-input" style="margin-bottom: 1rem;">
+                                <i class="fa-solid fa-map-pin"></i>
+                                <input type="text" placeholder="Endereço Completo" id="address">
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group half icon-input">
+                                    <i class="fa-solid fa-location-arrow"></i>
+                                    <input type="text" placeholder="CEP" id="zip">
+                                </div>
+                                <div class="form-group half icon-input">
+                                    <i class="fa-solid fa-city"></i>
+                                    <input type="text" placeholder="Cidade" id="city">
+                                </div>
                             </div>
                         </div>
-                        <p class="hint" style="margin-top: 0.5rem;">Funcionamento: Seg-Sáb, 8h às 20h.</p>
+                        
+                        <button type="button" class="btn btn-primary full-width" id="goToPaymentBtn" style="margin-top: 2rem;">Avançar para Pagamento</button>
                     </div>
 
-                    <div id="deliveryForm" class="logistic-info hidden">
-                        <div class="form-group icon-input" style="margin-bottom: 1rem;">
-                            <i class="fa-solid fa-map-pin"></i>
-                            <input type="text" placeholder="Endereço Completo" id="address">
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group half icon-input">
-                                <i class="fa-solid fa-location-arrow"></i>
-                                <input type="text" placeholder="CEP" id="zip">
-                            </div>
-                            <div class="form-group half icon-input">
-                                <i class="fa-solid fa-city"></i>
-                                <input type="text" placeholder="Cidade" id="city">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Payment Options -->
-                <div class="checkout-section">
+                <!-- Step 2: Payment Options -->
+                <div class="checkout-section hidden" id="checkoutStep2">
                     <h3>2. Forma de Pagamento</h3>
                     <div class="payment-options">
                         <label class="payment-card active">
@@ -607,8 +614,8 @@
                     <div id="pixDetails" class="pix-details-container">
                         <div class="qr-code-area">
                             <div class="qr-box">
-                                <img src="assets/QR CODE.png" alt="QR Code PIX"
-                                    style="width: 100%; height: 100%; object-fit: contain; padding: 10px;">
+                                <img src="https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=CURLYSGLOW_PIX_PAYMENT&color=3d261b&bgcolor=fff8e7" alt="QR Code PIX Curlys Glow"
+                                    style="width: 100%; height: 100%; object-fit: contain; padding: 10px; border-radius: 10px;">
                                 <div class="qr-scan-line"></div>
                             </div>
                             <p>Escaneie para pagar</p>
@@ -617,7 +624,7 @@
                             <label>PIX Copia e Cola</label>
                             <div class="copy-input-wrapper">
                                 <input type="text" id="pixCode"
-                                    value="00020126580014BR.GOV.BCB.PIX013662c12a45-6789-4d32-9c1a-glowcurlys05303986"
+                                    value="00020126580014BR.GOV.BCB.PIX013662c12a45-6789-4d32-9c1a-CURLYSGLOW_pix_01"
                                     readonly>
                                 <button type="button" id="copyPixBtn" title="Copiar código">
                                     <i class="fa-solid fa-copy"></i>
@@ -645,8 +652,11 @@
                                     <div class="card-front">
                                         <div class="card-glass-effect"></div>
                                         <div class="card-chip"></div>
-                                        <div class="card-brand"><i class="fa-brands fa-cc-visa"></i></div>
-                                        <div class="card-number-display">•••• •••• •••• ••••</div>
+                                        <div class="card-brand" style="display: flex; justify-content: space-between; width: 100%; align-items: center; margin-bottom: 15px;">
+                                            <i class="fa-brands fa-cc-visa" style="font-size: 2rem;"></i>
+                                            <span id="cardTypeDisplay" style="font-size: 0.8rem; font-weight: bold; letter-spacing: 2px; opacity: 0.9;">CRÉDITO</span>
+                                        </div>
+                                        <div class="card-number-display" style="margin-top: 10px;">•••• •••• •••• ••••</div>
                                         <div class="card-details-row">
                                             <div class="detail-item">
                                                 <small>Titular</small>
@@ -692,7 +702,10 @@
                     <div class="nif-section">
                         <input type="text" placeholder="NIF/CPF para fatura" id="nif">
                     </div>
+                    
+                    <button type="button" class="btn btn-outline full-width" id="backToStep1Btn" style="margin-top: 1rem;">Voltar para Endereço</button>
                 </div>
+                </div> <!-- End Left Column -->
 
                 <!-- Order Summary -->
                 <div class="checkout-section summary">
@@ -716,7 +729,7 @@
                         <div class="divider"></div>
                         <p class="final-total">Total: <span id="summaryTotal">R$ 0,00</span></p>
                     </div>
-                    <button class="btn btn-primary full-width" id="confirmPurchaseBtn">Confirmar e Pagar</button>
+                    <button class="btn btn-primary full-width hidden" id="confirmPurchaseBtn">Confirmar e Pagar</button>
                 </div>
             </div>
         </div>
@@ -754,6 +767,7 @@
                     <div class="icon-input">
                         <i class="fa-solid fa-lock"></i>
                         <input type="password" id="authPassword" placeholder="Senha" required>
+                        <i class="fa-solid fa-eye toggle-password" id="toggleAuthPassword"></i>
                     </div>
                 </div>
                 <div class="form-group" id="confirmPassGroup" style="display: none;">
@@ -761,6 +775,7 @@
                     <div class="icon-input">
                         <i class="fa-solid fa-lock-open"></i>
                         <input type="password" id="authConfirmPassword" placeholder="Confirma a Senha">
+                        <i class="fa-solid fa-eye toggle-password" id="toggleConfirmPassword"></i>
                     </div>
                 </div>
                 <a href="#" id="forgotPassBtn" class="forgot-pass-link"
@@ -776,6 +791,53 @@
     <a href="https://wa.me/5511912345678" class="whatsapp-float" target="_blank" title="Falar no WhatsApp">
         <i class="fa-brands fa-whatsapp"></i>
     </a>
+
+    <!-- Floating Wheel Trigger -->
+    <button class="wheel-trigger" id="openWheel" title="Girar Roleta da Sorte">
+        <i class="fa-solid fa-gift"></i>
+        <span>Girar Roleta</span>
+    </button>
+
+    <!-- Wheel Modal -->
+    <div class="modal-overlay" id="wheelModal">
+        <div class="wheel-container">
+            <button class="close-modal" id="closeWheel"><i class="fa-solid fa-xmark"></i></button>
+            <div class="wheel-header">
+                <h2 class="shimmer-title">Roleta Glow</h2>
+                <p>Gire e ganhe descontos exclusivos!</p>
+            </div>
+            
+            <div class="wheel-box">
+                <div class="wheel-outer-ring"></div>
+                <div class="wheel-pointer"><i class="fa-solid fa-location-pin"></i></div>
+                <div class="wheel" id="wheel">
+                    <!-- Segments generated via JS -->
+                </div>
+                <div class="wheel-center">
+                    <div class="wheel-center-inner">
+                        <img src="logo-small.png" alt="Logo" class="wheel-logo" onerror="this.style.display='none'">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="wheel-prizes-list">
+                <p><strong>Prêmios em jogo:</strong> 30% OFF, 20% OFF, 15% OFF, 10% OFF, Frete Grátis e mais!</p>
+            </div>
+
+            <button class="btn btn-primary" id="spinBtn">GIRAR AGORA</button>
+
+
+            <div id="wheelResult" class="wheel-result hidden">
+                <h3>Parabéns!</h3>
+                <p>Você ganhou: <span id="prizeText"></span></p>
+                <div class="coupon-box">
+                    <span id="wonCouponCode"></span>
+                    <button id="copyWonCoupon"><i class="fa-solid fa-copy"></i></button>
+                </div>
+                <p class="small">Use no seu próximo pedido!</p>
+            </div>
+        </div>
+    </div>
 
     <!-- Cookie Banner -->
     <div id="cookieBanner" class="cookie-banner">

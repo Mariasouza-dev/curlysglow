@@ -212,13 +212,39 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    // --- Step Transition Logic ---
+    const goToPaymentBtn = document.getElementById('goToPaymentBtn');
+    const backToStep1Btn = document.getElementById('backToStep1Btn');
+    const checkoutStep1 = document.getElementById('checkoutStep1');
+    const checkoutStep2 = document.getElementById('checkoutStep2');
+    const confirmPurchaseBtn = document.getElementById('confirmPurchaseBtn');
+
+    if(goToPaymentBtn) {
+        goToPaymentBtn.addEventListener('click', () => {
+            checkoutStep1.classList.add('hidden');
+            checkoutStep2.classList.remove('hidden');
+            if(confirmPurchaseBtn) confirmPurchaseBtn.classList.remove('hidden');
+        });
+    }
+
+    if(backToStep1Btn) {
+        backToStep1Btn.addEventListener('click', () => {
+            checkoutStep2.classList.add('hidden');
+            checkoutStep1.classList.remove('hidden');
+            if(confirmPurchaseBtn) confirmPurchaseBtn.classList.add('hidden');
+        });
+    }
+
     // --- Coupon Logic ---
     let appliedDiscount = 0; // valor fixo de desconto em reais
 
     const VALID_COUPONS = {
         'GLOW10':   0.10,
+        'GLOW15':   0.15,
         'CURLY20':  0.20,
         'GLOWVIP':  0.30,
+        'FRETEGRATIS': 0.00, // Handle separately for shipping
+        'GLOW05':   0.05,
     };
 
     const applyCouponBtn = document.getElementById('applyCouponBtn');
@@ -371,6 +397,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Credit/Debit Toggle
     const typeBtns = document.querySelectorAll('.type-btn');
     const installmentsArea = document.getElementById('installmentsArea');
+    const cardTypeDisplay = document.getElementById('cardTypeDisplay');
 
     typeBtns.forEach(btn => {
         btn.addEventListener('click', () => {
@@ -380,8 +407,10 @@ document.addEventListener('DOMContentLoaded', () => {
             // Toggle installments visibility based on type (Credit only)
             if (btn.dataset.cardType === 'credit') {
                 updateInstallments();
+                if(cardTypeDisplay) cardTypeDisplay.textContent = 'CRÉDITO';
             } else {
                 installmentsArea.classList.add('hidden');
+                if(cardTypeDisplay) cardTypeDisplay.textContent = 'DÉBITO';
             }
         });
     });
@@ -434,7 +463,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
         setTimeout(() => {
             alert('Compra finalizada com sucesso! Verifique o seu e-mail para os detalhes do pedido.');
-            cart = [];
+            // Clear the cart properly (const array)
+            cart.length = 0;
             updateCart();
             checkoutModal.classList.remove('active');
             confirmBtn.textContent = 'Confirmar e Pagar';
@@ -442,19 +472,65 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 2000);
     });
 
-    // --- Auth Flow ---
+    // --- Auth Flow (Real Simulation with localStorage) ---
     const authModal = document.getElementById('authModal');
     const openAuthBtns = document.querySelectorAll('.open-auth-modal');
     const closeAuthBtn = document.getElementById('closeAuth');
     const authTabs = document.querySelectorAll('.auth-tabs .toggle-btn');
     const authForm = document.getElementById('authForm');
     const authStatus = document.getElementById('authStatus');
+    const userActions = document.querySelector('.nav-actions');
+    const userIconLink = document.querySelector('.user-icon');
+
+    // Check for existing session
+    let currentUser = JSON.parse(localStorage.getItem('currentUser'));
+
+    function updateAuthUI() {
+        if (currentUser) {
+            // User is logged in
+            const firstName = currentUser.name.split(' ')[0];
+            userIconLink.innerHTML = `<span class="user-welcome">Olá, ${firstName}</span>`;
+            userIconLink.title = 'Minha Conta';
+            userIconLink.classList.remove('open-auth-modal');
+            
+            // Add logout button if not exists
+            if (!document.getElementById('logoutBtn')) {
+                const logoutBtn = document.createElement('a');
+                logoutBtn.href = '#';
+                logoutBtn.id = 'logoutBtn';
+                logoutBtn.innerHTML = '<i class="fa-solid fa-right-from-bracket"></i>';
+                logoutBtn.title = 'Sair';
+                logoutBtn.style.fontSize = '1.1rem';
+                logoutBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    localStorage.removeItem('currentUser');
+                    currentUser = null;
+                    location.reload(); // Simple reload to reset state
+                });
+                userActions.appendChild(logoutBtn);
+            }
+        } else {
+            // User is logged out
+            userIconLink.innerHTML = '<i class="fa-solid fa-user"></i>';
+            userIconLink.title = 'Login / Cadastro';
+            userIconLink.classList.add('open-auth-modal');
+            const logoutBtn = document.getElementById('logoutBtn');
+            if (logoutBtn) logoutBtn.remove();
+        }
+    }
+
+    updateAuthUI();
 
     if (openAuthBtns) {
         openAuthBtns.forEach(btn => {
             btn.addEventListener('click', (e) => {
                 e.preventDefault();
-                authModal.classList.add('active');
+                if (!currentUser) {
+                    authModal.classList.add('active');
+                } else {
+                    // Could redirect to a profile page, but for now just stay or show info
+                    alert(`Você já está logado como ${currentUser.name}`);
+                }
             });
         });
     }
@@ -469,12 +545,9 @@ document.addEventListener('DOMContentLoaded', () => {
         authTabs.forEach(btn => {
             btn.addEventListener('click', () => {
                 const tab = btn.dataset.tab;
-                
-                // Update active tab button
                 authTabs.forEach(b => b.classList.remove('active'));
                 btn.classList.add('active');
                 
-                // Elements to toggle
                 const nameGroup = document.getElementById('nameGroup');
                 const confirmPassGroup = document.getElementById('confirmPassGroup');
                 const forgotPassBtn = document.getElementById('forgotPassBtn');
@@ -491,11 +564,9 @@ document.addEventListener('DOMContentLoaded', () => {
                     if (forgotPassBtn) forgotPassBtn.style.display = 'none';
                     if (emailLabel) emailLabel.style.display = 'block';
                     if (passLabel) passLabel.style.display = 'block';
-                    
-                    if (emailInput) emailInput.placeholder = "seu@email.com";
-                    if (passInput) passInput.placeholder = "Crie uma senha";
-                    if (authSubmitBtn) authSubmitBtn.textContent = 'Cadastrar';
-                    
+                    emailInput.placeholder = "seu@email.com";
+                    passInput.placeholder = "Crie uma senha";
+                    authSubmitBtn.textContent = 'Cadastrar';
                     document.getElementById('authName').required = true;
                     if (confirmPassInput) confirmPassInput.required = true;
                 } else {
@@ -504,11 +575,9 @@ document.addEventListener('DOMContentLoaded', () => {
                     if (forgotPassBtn) forgotPassBtn.style.display = 'block';
                     if (emailLabel) emailLabel.style.display = 'none';
                     if (passLabel) passLabel.style.display = 'none';
-                    
-                    if (emailInput) emailInput.placeholder = "Endereço de E-mail";
-                    if (passInput) passInput.placeholder = "Senha";
-                    if (authSubmitBtn) authSubmitBtn.textContent = 'Entrar';
-                    
+                    emailInput.placeholder = "Endereço de E-mail";
+                    passInput.placeholder = "Senha";
+                    authSubmitBtn.textContent = 'Entrar';
                     document.getElementById('authName').required = false;
                     if (confirmPassInput) confirmPassInput.required = false;
                 }
@@ -519,26 +588,66 @@ document.addEventListener('DOMContentLoaded', () => {
     if (authForm) {
         authForm.addEventListener('submit', (e) => {
             e.preventDefault();
-            const originalText = authSubmitBtn.textContent;
-            authSubmitBtn.textContent = 'Processando...';
-            authSubmitBtn.disabled = true;
+            const tab = document.querySelector('.auth-tabs .toggle-btn.active').dataset.tab;
+            const email = document.getElementById('authEmail').value;
+            const password = document.getElementById('authPassword').value;
+            const submitBtn = document.getElementById('authSubmitBtn');
+            const originalText = submitBtn.textContent;
+
+            submitBtn.textContent = 'Processando...';
+            submitBtn.disabled = true;
 
             setTimeout(() => {
-                authSubmitBtn.textContent = originalText;
-                authSubmitBtn.disabled = false;
-                
-                const isLogin = document.querySelector('.auth-tabs .toggle-btn.active').dataset.tab === 'login';
-                authStatus.textContent = isLogin ? 'Login efetuado com sucesso!' : 'Conta criada com sucesso!';
-                authStatus.style.color = '#28a745';
-                
-                setTimeout(() => {
-                    authStatus.textContent = '';
-                    authModal.classList.remove('active');
-                    authForm.reset();
-                    // Reset to login tab
-                    authTabs[0].click();
-                }, 2000);
-            }, 1500);
+                let users = JSON.parse(localStorage.getItem('glowUsers')) || [];
+
+                if (tab === 'register') {
+                    const name = document.getElementById('authName').value;
+                    const confirmPass = document.getElementById('authConfirmPassword').value;
+
+                    if (password !== confirmPass) {
+                        authStatus.textContent = 'As senhas não coincidem!';
+                        authStatus.style.color = '#ef4444';
+                        submitBtn.textContent = originalText;
+                        submitBtn.disabled = false;
+                        return;
+                    }
+
+                    if (users.find(u => u.email === email)) {
+                        authStatus.textContent = 'Este e-mail já está cadastrado!';
+                        authStatus.style.color = '#ef4444';
+                        submitBtn.textContent = originalText;
+                        submitBtn.disabled = false;
+                        return;
+                    }
+
+                    const newUser = { name, email, password };
+                    users.push(newUser);
+                    localStorage.setItem('glowUsers', JSON.stringify(users));
+                    
+                    authStatus.textContent = 'Conta criada com sucesso! Você já pode entrar.';
+                    authStatus.style.color = '#28a745';
+                    setTimeout(() => authTabs[0].click(), 1500);
+                } else {
+                    const user = users.find(u => u.email === email && u.password === password);
+                    if (user) {
+                        localStorage.setItem('currentUser', JSON.stringify(user));
+                        currentUser = user;
+                        authStatus.textContent = 'Login efetuado! Redirecionando...';
+                        authStatus.style.color = '#28a745';
+                        setTimeout(() => {
+                            updateAuthUI();
+                            authModal.classList.remove('active');
+                            authForm.reset();
+                        }, 1500);
+                    } else {
+                        authStatus.textContent = 'E-mail ou senha incorretos.';
+                        authStatus.style.color = '#ef4444';
+                    }
+                }
+
+                submitBtn.textContent = originalText;
+                submitBtn.disabled = false;
+            }, 1000);
         });
     }
 
@@ -684,5 +793,124 @@ document.addEventListener('DOMContentLoaded', () => {
     if (pickupDateInput) {
         const today = new Date().toISOString().split('T')[0];
         pickupDateInput.setAttribute('min', today);
+    }
+    // --- Password Visibility Toggle ---
+    const toggleAuthPassword = document.getElementById('toggleAuthPassword');
+    const authPasswordInput = document.getElementById('authPassword');
+    const toggleConfirmPassword = document.getElementById('toggleConfirmPassword');
+    const confirmPasswordInput = document.getElementById('authConfirmPassword');
+
+    if (toggleAuthPassword && authPasswordInput) {
+        toggleAuthPassword.addEventListener('click', () => {
+            const type = authPasswordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+            authPasswordInput.setAttribute('type', type);
+            toggleAuthPassword.classList.toggle('fa-eye');
+            toggleAuthPassword.classList.toggle('fa-eye-slash');
+        });
+    }
+
+    if (toggleConfirmPassword && confirmPasswordInput) {
+        toggleConfirmPassword.addEventListener('click', () => {
+            const type = confirmPasswordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+            confirmPasswordInput.setAttribute('type', type);
+            toggleConfirmPassword.classList.toggle('fa-eye');
+            toggleConfirmPassword.classList.toggle('fa-eye-slash');
+        });
+    }
+    // --- Coupon Wheel Logic ---
+    const wheel = document.getElementById('wheel');
+    const spinBtn = document.getElementById('spinBtn');
+    const wheelModal = document.getElementById('wheelModal');
+    const openWheelBtn = document.getElementById('openWheel');
+    const closeWheelBtn = document.getElementById('closeWheel');
+    const wheelResult = document.getElementById('wheelResult');
+    const prizeText = document.getElementById('prizeText');
+    const wonCouponCode = document.getElementById('wonCouponCode');
+    const copyWonCoupon = document.getElementById('copyWonCoupon');
+
+    const prizes = [
+        { text: "10% OFF", code: "GLOW10" },
+        { text: "15% OFF", code: "GLOW15" },
+        { text: "Tente Novamente", code: "" },
+        { text: "30% OFF", code: "GLOWVIP" },
+        { text: "Frete Grátis", code: "FRETEGRATIS" },
+        { text: "20% OFF", code: "CURLY20" },
+        { text: "5% OFF", code: "GLOW05" },
+        { text: "Tente Novamente", code: "" }
+    ];
+
+    // Generate segments
+    if (wheel) {
+        const segmentAngle = 360 / prizes.length;
+        wheel.innerHTML = prizes.map((prize, i) => `
+            <div class="wheel-segment" style="transform: rotate(${i * segmentAngle}deg) skewY(${90 - segmentAngle}deg)">
+                <div class="segment-content" style="transform: skewY(-${90 - segmentAngle}deg) rotate(${segmentAngle / 2}deg)">
+                    <span class="prize-name">${prize.text}</span>
+                    <span class="prize-code">${prize.code}</span>
+                </div>
+            </div>
+        `).join('');
+    }
+
+    let isSpinning = false;
+    let currentRotation = 0;
+
+    if (openWheelBtn) {
+        openWheelBtn.addEventListener('click', () => {
+            wheelModal.classList.add('active');
+            wheelResult.classList.add('hidden');
+            wheel.style.transition = 'none';
+            wheel.style.transform = 'rotate(0deg)';
+            currentRotation = 0;
+        });
+    }
+
+    if (closeWheelBtn) {
+        closeWheelBtn.addEventListener('click', () => {
+            wheelModal.classList.remove('active');
+        });
+    }
+
+    if (spinBtn) {
+        spinBtn.addEventListener('click', () => {
+            if (isSpinning) return;
+            
+            isSpinning = true;
+            wheelResult.classList.add('hidden');
+            
+            const extraSpins = 5 + Math.floor(Math.random() * 5);
+            const randomAngle = Math.floor(Math.random() * 360);
+            const totalRotation = extraSpins * 360 + randomAngle;
+            
+            wheel.style.transition = 'transform 5s cubic-bezier(0.15, 0, 0.15, 1)';
+            wheel.style.transform = `rotate(${totalRotation}deg)`;
+            
+            setTimeout(() => {
+                isSpinning = false;
+                
+                // Calculate which prize was won (pointer is at top - 0deg)
+                const normalizedAngle = (360 - (totalRotation % 360)) % 360;
+                const prizeIndex = Math.floor(normalizedAngle / (360 / prizes.length));
+                const win = prizes[prizeIndex];
+
+                if (win.code) {
+                    prizeText.textContent = win.text;
+                    wonCouponCode.textContent = win.code;
+                    wheelResult.classList.remove('hidden');
+                } else {
+                    alert("Não foi dessa vez! Tente girar novamente.");
+                }
+            }, 5000);
+        });
+    }
+
+    if (copyWonCoupon) {
+        copyWonCoupon.addEventListener('click', () => {
+            navigator.clipboard.writeText(wonCouponCode.textContent).then(() => {
+                const originalIcon = copyWonCoupon.innerHTML;
+                copyWonCoupon.innerHTML = '<i class="fa-solid fa-check"></i>';
+                setTimeout(() => copyWonCoupon.innerHTML = originalIcon, 2000);
+            });
+        });
     }
 });
