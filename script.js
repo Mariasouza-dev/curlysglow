@@ -324,15 +324,17 @@ document.addEventListener('DOMContentLoaded', () => {
             // Show/Hide Payment Details
             if (pixDetails && cardDetails) {
                 if (radio.value === 'pix') {
+                    pixDetails.classList.remove('hidden');
+                    cardDetails.classList.add('hidden');
                     pixDetails.style.display = 'flex';
-                    cardDetails.style.display = 'none';
                 } else if (radio.value === 'card') {
-                    pixDetails.style.display = 'none';
+                    pixDetails.classList.add('hidden');
+                    cardDetails.classList.remove('hidden');
                     cardDetails.style.display = 'grid';
                     updateInstallments(); 
                 } else {
-                    pixDetails.style.display = 'none';
-                    cardDetails.style.display = 'none';
+                    pixDetails.classList.add('hidden');
+                    cardDetails.classList.add('hidden');
                 }
             }
         });
@@ -351,10 +353,30 @@ document.addEventListener('DOMContentLoaded', () => {
     const cardExpiryDisplay = document.querySelector('.card-expiry-display');
     const cardCVVDisplay = document.querySelector('.card-cvv-display');
 
-    // Card Number Mask & Update
+    // Card Number Mask & Update & Brand Detection
     if (cardNumberInput) {
         cardNumberInput.addEventListener('input', (e) => {
             let value = e.target.value.replace(/\D/g, '');
+            
+            // Brand Detection
+            const brandVisa = document.getElementById('brandVisa');
+            const brandMastercard = document.getElementById('brandMastercard');
+            const brandDefault = document.getElementById('brandDefault');
+            
+            if (brandVisa && brandMastercard && brandDefault) {
+                brandVisa.classList.add('hidden');
+                brandMastercard.classList.add('hidden');
+                brandDefault.classList.add('hidden');
+                
+                if (value.startsWith('4')) {
+                    brandVisa.classList.remove('hidden');
+                } else if (value.startsWith('5')) {
+                    brandMastercard.classList.remove('hidden');
+                } else {
+                    brandDefault.classList.remove('hidden');
+                }
+            }
+
             value = value.match(/.{1,4}/g)?.join(' ') || '';
             e.target.value = value;
             cardNumberDisplay.textContent = value || '•••• •••• •••• ••••';
@@ -404,13 +426,17 @@ document.addEventListener('DOMContentLoaded', () => {
             typeBtns.forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
             
-            // Toggle installments visibility based on type (Credit only)
-            if (btn.dataset.cardType === 'credit') {
+            const isCredit = btn.dataset.cardType === 'credit';
+            
+            // Update Card Visual
+            if(cardTypeDisplay) cardTypeDisplay.textContent = isCredit ? 'CRÉDITO' : 'DÉBITO';
+            
+            // Toggle installments visibility
+            if (isCredit) {
                 updateInstallments();
-                if(cardTypeDisplay) cardTypeDisplay.textContent = 'CRÉDITO';
+                installmentsArea.classList.remove('hidden');
             } else {
                 installmentsArea.classList.add('hidden');
-                if(cardTypeDisplay) cardTypeDisplay.textContent = 'DÉBITO';
             }
         });
     });
@@ -498,7 +524,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const logoutBtn = document.createElement('a');
                 logoutBtn.href = '#';
                 logoutBtn.id = 'logoutBtn';
-                logoutBtn.innerHTML = '<i class="fa-solid fa-right-from-bracket"></i>';
+                logoutBtn.innerHTML = '<i class="fa-solid fa-arrow-right-from-bracket"></i>';
                 logoutBtn.title = 'Sair';
                 logoutBtn.style.fontSize = '1.1rem';
                 logoutBtn.addEventListener('click', (e) => {
@@ -507,7 +533,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     currentUser = null;
                     location.reload(); // Simple reload to reset state
                 });
-                userActions.appendChild(logoutBtn);
+                // Insert logout button after user icon link
+                userIconLink.insertAdjacentElement('afterend', logoutBtn);
             }
         } else {
             // User is logged out
@@ -651,24 +678,48 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // --- Contact Form Logic (Simulation for Controlled Environments) ---
+    // --- Contact Form Logic (AJAX submission with Formsubmit.co) ---
     const contactForm = document.getElementById('contactForm');
     const contactSubmitBtn = document.getElementById('contactSubmitBtn');
+    const contactStatus = document.getElementById('contactStatus');
 
     if (contactForm) {
-        contactForm.addEventListener('submit', (e) => {
+        contactForm.addEventListener('submit', async (e) => {
             e.preventDefault();
+            
             const originalText = contactSubmitBtn.textContent;
             contactSubmitBtn.textContent = 'Enviando...';
             contactSubmitBtn.disabled = true;
+            contactStatus.textContent = '';
 
-            // Simula um tempo de rede de 1.5 segundos
-            setTimeout(() => {
-                alert("mensagem enviada com sucesso");
-                contactForm.reset();
+            const formData = new FormData(contactForm);
+            const data = Object.fromEntries(formData.entries());
+
+            try {
+                const response = await fetch(contactForm.action, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                });
+
+                if (response.ok) {
+                    contactStatus.textContent = '✓ Mensagem enviada com sucesso! Entraremos em contato em breve.';
+                    contactStatus.style.color = '#28a745';
+                    contactForm.reset();
+                } else {
+                    throw new Error('Falha no envio');
+                }
+            } catch (error) {
+                contactStatus.textContent = '✗ Erro ao enviar mensagem. Por favor, tente novamente mais tarde.';
+                contactStatus.style.color = '#ef4444';
+            } finally {
                 contactSubmitBtn.textContent = originalText;
                 contactSubmitBtn.disabled = false;
-            }, 1500);
+                setTimeout(() => contactStatus.textContent = '', 5000);
+            }
         });
     }
 
@@ -740,6 +791,16 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
 
+        // Clique no card para avançar
+        const reviewCards = document.querySelectorAll('.review-card');
+        reviewCards.forEach(card => {
+            card.style.cursor = 'pointer';
+            card.addEventListener('click', () => {
+                currentReviewIndex = (currentReviewIndex + 1) % dots.length;
+                updateCarousel();
+            });
+        });
+
         // Garantir que o alinhamento se mantenha ao redimensionar a tela
         window.addEventListener('resize', updateCarousel);
     }
@@ -770,8 +831,47 @@ document.addEventListener('DOMContentLoaded', () => {
     const zipInput = document.getElementById('zip');
     if (zipInput) {
         zipInput.addEventListener('input', (e) => {
-            let x = e.target.value.replace(/\D/g, '').match(/(\d{0,5})(\d{0,3})/);
+            let value = e.target.value.replace(/\D/g, '');
+            let x = value.match(/(\d{0,5})(\d{0,3})/);
             e.target.value = !x[2] ? x[1] : x[1] + '-' + x[2];
+
+            // Auto-fill logic
+            if (value.length === 8) {
+                const addressInput = document.getElementById('address');
+                const cityInput = document.getElementById('city');
+                
+                // Visual feedback: loading
+                addressInput.placeholder = 'Buscando endereço...';
+                cityInput.placeholder = 'Buscando cidade...';
+                addressInput.classList.add('loading-pulse');
+                cityInput.classList.add('loading-pulse');
+
+                fetch(`https://viacep.com.br/ws/${value}/json/`)
+                    .then(response => response.json())
+                    .then(data => {
+                        addressInput.classList.remove('loading-pulse');
+                        cityInput.classList.remove('loading-pulse');
+                        
+                        if (!data.erro) {
+                            addressInput.value = `${data.logradouro}${data.bairro ? ', ' + data.bairro : ''}`;
+                            cityInput.value = `${data.localidade} - ${data.uf}`;
+                            // Focus on address to let user add number/complement
+                            addressInput.focus();
+                        } else {
+                            addressInput.placeholder = 'CEP não encontrado';
+                            cityInput.placeholder = 'CEP não encontrado';
+                            setTimeout(() => {
+                                addressInput.placeholder = 'Endereço Completo';
+                                cityInput.placeholder = 'Cidade';
+                            }, 2000);
+                        }
+                    })
+                    .catch(() => {
+                        addressInput.classList.remove('loading-pulse');
+                        cityInput.classList.remove('loading-pulse');
+                        addressInput.placeholder = 'Erro ao buscar CEP';
+                    });
+            }
         });
     }
 

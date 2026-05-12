@@ -76,6 +76,7 @@
             </div>
         </div>
         <div class="hero-image reveal">
+            <div class="image-decor"></div>
             <img src="assets/hero.png" alt="Editorial: Mulher com cachos definidos e luxuosos">
         </div>
     </section>
@@ -283,9 +284,9 @@
     <section id="reviews" class="reviews">
         <div class="container">
             <div class="section-title reveal">
-                <h2 class="shimmer-title">O Brilho das Nossas Clientes</h2>
+                <h2 class="shimmer-title">Experiências Glow</h2>
                 <div class="divider"></div>
-                <p>Histórias reais de quem redescobriu a beleza dos seus cachos.</p>
+                <p>Histórias reais de quem redescobriu a beleza dos seus cachos e o poder dos nossos produtos.</p>
             </div>
             <div class="reviews-carousel">
                 <div class="reviews-grid" id="reviewsGrid">
@@ -409,6 +410,82 @@
                         <p class="review-text">"Melhor investimento que já fiz no meu cabelo. O resultado das mechas
                             iluminadas ficou super natural e sem frizz."</p>
                     </div>
+                    <!-- Review 7 (Product) -->
+                    <div class="review-card">
+                        <div class="review-client">
+                            <div class="client-avatar">CM</div>
+                            <div class="client-details">
+                                <h4>Carolina Mendes</h4>
+                                <span class="review-date">05 Jan 2026</span>
+                            </div>
+                        </div>
+                        <div class="review-stars">
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                        </div>
+                        <div class="review-divider"></div>
+                        <p class="review-text">"O Essential Glow Duo é simplesmente perfeito. A máscara hidratou meus fios como nenhuma outra e o óleo finalizador dá um brilho de capa de revista!"</p>
+                    </div>
+                    <!-- Review 8 (Product) -->
+                    <div class="review-card">
+                        <div class="review-client">
+                            <div class="client-avatar">PS</div>
+                            <div class="client-details">
+                                <h4>Patrícia Silva</h4>
+                                <span class="review-date">20 Dez 2025</span>
+                            </div>
+                        </div>
+                        <div class="review-stars">
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                        </div>
+                        <div class="review-divider"></div>
+                        <p class="review-text">"Comprei o Essential Clean Duo e estou encantada. Meu cabelo ficou super limpo sem ressecar nada, e o condicionador desembaraça num piscar de olhos."</p>
+                    </div>
+                    <!-- Review 9 (Product) -->
+                    <div class="review-card">
+                        <div class="review-client">
+                            <div class="client-avatar">RS</div>
+                            <div class="client-details">
+                                <h4>Renata Souza</h4>
+                                <span class="review-date">15 Dez 2025</span>
+                            </div>
+                        </div>
+                        <div class="review-stars">
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                        </div>
+                        <div class="review-divider"></div>
+                        <p class="review-text">"A Essential Mask recuperou meus cachos depois de uma temporada de praia. Eles voltaram a ter vida, maciez e muita definição. Recomendo demais!"</p>
+                    </div>
+                    <!-- Review 10 (Product) -->
+                    <div class="review-card">
+                        <div class="review-client">
+                            <div class="client-avatar">IG</div>
+                            <div class="client-details">
+                                <h4>Isabela Gouveia</h4>
+                                <span class="review-date">02 Dez 2025</span>
+                            </div>
+                        </div>
+                        <div class="review-stars">
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                        </div>
+                        <div class="review-divider"></div>
+                        <p class="review-text">"O Creme de Pentear Essential é o meu novo favorito. Deixa os cachos super definidos e levinhos, sem aquele aspecto endurecido. O cheiro é divino!"</p>
+                    </div>
                 </div>
             </div>
             <div class="reviews-pagination" id="reviewsPagination">
@@ -418,6 +495,10 @@
                 <span class="dot" data-index="3"></span>
                 <span class="dot" data-index="4"></span>
                 <span class="dot" data-index="5"></span>
+                <span class="dot" data-index="6"></span>
+                <span class="dot" data-index="7"></span>
+                <span class="dot" data-index="8"></span>
+                <span class="dot" data-index="9"></span>
             </div>
         </div>
     </section>
@@ -653,7 +734,9 @@
                                         <div class="card-glass-effect"></div>
                                         <div class="card-chip"></div>
                                         <div class="card-brand" style="display: flex; justify-content: space-between; width: 100%; align-items: center; margin-bottom: 15px;">
-                                            <i class="fa-brands fa-cc-visa" style="font-size: 2rem;"></i>
+                                            <i class="fa-brands fa-cc-visa" id="brandVisa"></i>
+                                            <i class="fa-brands fa-cc-mastercard hidden" id="brandMastercard"></i>
+                                            <i class="fa-solid fa-credit-card hidden" id="brandDefault"></i>
                                             <span id="cardTypeDisplay" style="font-size: 0.8rem; font-weight: bold; letter-spacing: 2px; opacity: 0.9;">CRÉDITO</span>
                                         </div>
                                         <div class="card-number-display" style="margin-top: 10px;">•••• •••• •••• ••••</div>
@@ -699,9 +782,7 @@
                         </div>
                     </div>
 
-                    <div class="nif-section">
-                        <input type="text" placeholder="NIF/CPF para fatura" id="nif">
-                    </div>
+
                     
                     <button type="button" class="btn btn-outline full-width" id="backToStep1Btn" style="margin-top: 1rem;">Voltar para Endereço</button>
                 </div>

@@ -281,6 +281,24 @@ body.dark-theme .user-welcome {
     color: var(--accent-color);
 }
 
+#logoutBtn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--primary-color);
+    transition: var(--transition-fast);
+    margin-left: -0.8rem; /* Bring it closer to the user name */
+}
+
+#logoutBtn:hover {
+    color: var(--accent-color);
+    transform: scale(1.1);
+}
+
+body.dark-theme #logoutBtn {
+    color: var(--accent-color);
+}
+
 .cart-count {
     position: absolute;
     top: -8px;
@@ -440,15 +458,63 @@ body.dark-theme .hero p {
 .hero-image::after {
     content: "";
     position: absolute;
-    top: -20px;
-    right: -20px;
+    top: -15px;
+    right: -15px;
     width: 100%;
     height: 100%;
-    border: 2px solid var(--accent-color);
+    border: 1px solid var(--accent-color);
+    border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
+    z-index: -1;
+    opacity: 0.6;
+    transition: var(--transition-smooth);
+}
+
+.hero-image::before {
+    content: "";
+    position: absolute;
+    bottom: -15px;
+    left: -15px;
+    width: 100%;
+    height: 100%;
+    border: 1px solid var(--accent-color);
+    border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
+    z-index: -2;
+    opacity: 0.4;
+    transition: var(--transition-smooth);
+}
+
+.image-decor::after {
+    content: "";
+    position: absolute;
+    top: -15px;
+    left: -15px;
+    width: 100%;
+    height: 100%;
+    border: 1px solid var(--accent-color);
     border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
     z-index: -1;
     opacity: 0.3;
+    transition: var(--transition-smooth);
 }
+
+.image-decor::before {
+    content: "";
+    position: absolute;
+    bottom: -15px;
+    right: -15px;
+    width: 100%;
+    height: 100%;
+    border: 1px solid var(--accent-color);
+    border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
+    z-index: -1;
+    opacity: 0.2;
+    transition: var(--transition-smooth);
+}
+
+.hero-image:hover::after { transform: translate(8px, -8px) rotate(2deg); opacity: 0.8; }
+.hero-image:hover::before { transform: translate(-8px, 8px) rotate(-2deg); opacity: 0.6; }
+.hero-image:hover .image-decor::after { transform: translate(-8px, -8px) rotate(-1deg); opacity: 0.5; }
+.hero-image:hover .image-decor::before { transform: translate(8px, 8px) rotate(1deg); opacity: 0.4; }
 
 /* Services */
 .services {
@@ -782,6 +848,19 @@ input::placeholder,
 textarea::placeholder {
     color: var(--text-color) !important;
     opacity: 1 !important;
+}
+
+/* Loading animation for CEP lookup */
+@keyframes pulse {
+    0% { opacity: 1; }
+    50% { opacity: 0.5; }
+    100% { opacity: 1; }
+}
+
+.loading-pulse {
+    animation: pulse 1.5s infinite ease-in-out;
+    pointer-events: none;
+    border-color: var(--accent-color) !important;
 }
 
 /* Vendor prefixes for better compatibility */
@@ -1640,6 +1719,8 @@ body.dark-theme .payment-card.active {
 
 .review-card:hover {
     transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(186, 137, 107, 0.2);
+    border-color: var(--accent-color);
 }
 
 .review-date {
@@ -2115,8 +2196,24 @@ body.dark-theme .type-selector {
     position: absolute;
     top: 2rem;
     right: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 5px;
+}
+
+.card-brand i {
     font-size: 2.5rem;
+    color: #fff;
     opacity: 0.9;
+}
+
+#cardTypeDisplay {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    opacity: 0.8;
+    text-transform: uppercase;
 }
 
 .card-number-display {
