@@ -1013,4 +1013,92 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
     }
+
+    // --- Translation Logic ---
+    const langBtns = document.querySelectorAll('.lang-dropdown button, .lang-switcher-mobile button');
+    const currentLangDisplay = document.getElementById('currentLang');
+
+    // Default language or saved preference
+    let currentLang = localStorage.getItem('language') || 'pt-BR';
+
+    function updateLanguage(lang) {
+        if (!translations[lang]) return;
+
+        // Save preference
+        localStorage.setItem('language', lang);
+        currentLang = lang;
+
+        // Update UI
+        const shortLang = lang === 'pt-BR' ? 'PT' : lang.toUpperCase();
+        if (currentLangDisplay) currentLangDisplay.textContent = shortLang;
+
+        // Update active class on buttons
+        langBtns.forEach(btn => {
+            if (btn.getAttribute('data-lang') === lang) {
+                btn.classList.add('active');
+            } else {
+                btn.classList.remove('active');
+            }
+        });
+
+        // Translate all elements with data-i18n
+        document.querySelectorAll('[data-i18n]').forEach(el => {
+            const key = el.getAttribute('data-i18n');
+            if (translations[lang][key]) {
+                // Check if it's an input or textarea (placeholder)
+                if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+                    el.placeholder = translations[lang][key];
+                } else {
+                    // Update innerHTML to support <br> or <span> tags
+                    el.innerHTML = translations[lang][key];
+                }
+            }
+        });
+
+        // Specific cases like input placeholders that aren't using data-i18n directly or need special handling
+        const placeholders = {
+            'contactName': 'form-name',
+            'contactEmail': 'form-email',
+            'contactSubject': 'contact-subject',
+            'contactMessage': 'contact-message',
+            'name': 'form-name',
+            'email': 'form-email',
+            'phone': 'form-phone'
+        };
+
+        for (const [id, key] of Object.entries(placeholders)) {
+            const el = document.getElementById(id);
+            if (el && translations[lang][key]) {
+                el.placeholder = translations[lang][key];
+            }
+        }
+
+        // Update select options
+        const serviceSelect = document.getElementById('service');
+        if (serviceSelect) {
+            const options = serviceSelect.options;
+            if (options[0]) options[0].textContent = translations[lang]['form-service-placeholder'];
+            // Individual options mapping if needed, but the select is mostly static
+        }
+
+        // Update document title and description
+        if (lang === 'en') {
+            document.title = 'Curlys Glow | The Shine of Your Curls';
+        } else if (lang === 'es') {
+            document.title = 'Curlys Glow | El Brillo de tus Rizos';
+        } else {
+            document.title = 'Curlys Glow | O Brilho dos Seus Cachos';
+        }
+    }
+
+    // Event listeners for buttons
+    langBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const lang = btn.getAttribute('data-lang');
+            updateLanguage(lang);
+        });
+    });
+
+    // Initialize with current language
+    updateLanguage(currentLang);
 });

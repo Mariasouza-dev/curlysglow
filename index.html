@@ -16,6 +16,7 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="style.css">
+    <script src="js/translations.js"></script>
 </head>
 
 <body>
@@ -24,13 +25,24 @@
         <div class="container nav-container">
             <a href="#" class="logo">Curlys <span>Glow</span></a>
             <nav class="nav-links">
-                <a href="#home">Início</a>
-                <a href="#services">Serviços</a>
-                <a href="#shop">Loja</a>
-                <a href="#booking">Atendimento</a>
-                <a href="#contact-form-section">Contato</a>
+                <a href="#home" data-i18n="nav-home">Início</a>
+                <a href="#services" data-i18n="nav-services">Serviços</a>
+                <a href="#shop" data-i18n="nav-shop">Loja</a>
+                <a href="#booking" data-i18n="nav-booking">Atendimento</a>
+                <a href="#contact-form-section" data-i18n="nav-contact">Contato</a>
             </nav>
             <div class="nav-actions">
+                <div class="lang-switcher">
+                    <button class="lang-btn" id="langBtn">
+                        <i class="fa-solid fa-globe"></i>
+                        <span id="currentLang">PT</span>
+                    </button>
+                    <div class="lang-dropdown">
+                        <button data-lang="pt-BR">Português</button>
+                        <button data-lang="en">English</button>
+                        <button data-lang="es">Español</button>
+                    </div>
+                </div>
                 <a href="#" class="user-icon open-auth-modal" title="Login / Cadastro"><i
                         class="fa-solid fa-user"></i></a>
                 <a href="#" class="cart-icon"><i class="fa-solid fa-bag-shopping"></i><span
@@ -45,14 +57,19 @@
         <div class="mobile-menu" id="mobileMenu">
             <button class="close-menu" id="closeMenu"><i class="fa-solid fa-xmark"></i></button>
             <nav class="mobile-nav-links">
-                <a href="#home" data-text="Início">Início</a>
-                <a href="#services" data-text="Serviços">Serviços</a>
-                <a href="#shop" data-text="Loja">Loja</a>
-                <a href="#booking" data-text="Atendimento">Atendimento</a>
-                <a href="#contact-form-section" data-text="Contato">Contato</a>
-                <a href="#" class="open-auth-modal" data-text="Conta">Minha Conta</a>
+                <a href="#home" data-text="Início" data-i18n="nav-home">Início</a>
+                <a href="#services" data-text="Serviços" data-i18n="nav-services">Serviços</a>
+                <a href="#shop" data-text="Loja" data-i18n="nav-shop">Loja</a>
+                <a href="#booking" data-text="Atendimento" data-i18n="nav-booking">Atendimento</a>
+                <a href="#contact-form-section" data-text="Contato" data-i18n="nav-contact">Contato</a>
+                <a href="#" class="open-auth-modal" data-text="Conta" data-i18n="nav-account">Minha Conta</a>
             </nav>
             <div class="mobile-social">
+                <div class="lang-switcher-mobile">
+                    <button data-lang="pt-BR">PT</button>
+                    <button data-lang="en">EN</button>
+                    <button data-lang="es">ES</button>
+                </div>
                 <button class="theme-toggle" id="themeToggleMobile" title="Alternar Tema"
                     style="background: rgba(255,255,255,0.1); color: #fff; width: 50px; height: 50px; margin-right: 1.5rem;">
                     <i class="fa-solid fa-sun"></i>
@@ -67,12 +84,12 @@
     <!-- Hero Section -->
     <section id="home" class="hero">
         <div class="container hero-content">
-            <h1 class="reveal">O Brilho Que Define <br><span>Sua Essência</span></h1>
-            <p class="reveal">Curadoria exclusiva para cabelos com curvatura. No Curlys Glow, elevamos a textura natural
+            <h1 class="reveal" data-i18n="hero-title">O Brilho Que Define <br><span>Sua Essência</span></h1>
+            <p class="reveal" data-i18n="hero-subtitle">Curadoria exclusiva para cabelos com curvatura. No Curlys Glow, elevamos a textura natural
                 ao status de arte através de tratamentos de luxo e precisão técnica.</p>
             <div class="hero-btns reveal">
-                <a href="#booking" class="btn btn-primary">Agendar Consultoria</a>
-                <a href="#shop" class="btn btn-outline">Explore a Loja</a>
+                <a href="#booking" class="btn btn-primary" data-i18n="hero-btn-booking">Agendar Consultoria</a>
+                <a href="#shop" class="btn btn-outline" data-i18n="hero-btn-shop">Explore a Loja</a>
             </div>
         </div>
         <div class="hero-image reveal">
@@ -87,64 +104,64 @@
     <section id="services" class="services">
         <div class="container">
             <div class="section-title">
-                <h2 class="shimmer-title">Nossos Serviços</h2>
+                <h2 class="shimmer-title" data-i18n="section-services-title">Nossos Serviços</h2>
                 <div class="divider"></div>
-                <p>Tratamentos especializados para cada tipo de curvatura.</p>
+                <p data-i18n="section-services-subtitle">Tratamentos especializados para cada tipo de curvatura.</p>
             </div>
             <div class="services-grid">
                 <div class="service-card">
                     <i class="fa-solid fa-scissors"></i>
-                    <h3>Corte a Seco</h3>
-                    <p>Técnica especializada para respeitar o encolhimento e a forma natural dos seus fios.</p>
-                    <div class="service-price">A partir de R$ 180,00</div>
+                    <h3 data-i18n="service-corte">Corte a Seco</h3>
+                    <p data-i18n="service-corte-desc">Técnica especializada para respeitar o encolhimento e a forma natural dos seus fios.</p>
+                    <div class="service-price"><span data-i18n="price-from">A partir de</span> R$ 180,00</div>
 
                 </div>
                 <div class="service-card">
                     <i class="fa-solid fa-droplet"></i>
-                    <h3>Terapia Capilar</h3>
-                    <p>Hidratação profunda e nutrição intensa com óleos essenciais e ativos orgânicos.</p>
-                    <div class="service-price">A partir de R$ 220,00</div>
+                    <h3 data-i18n="service-terapia">Terapia Capilar</h3>
+                    <p data-i18n="service-terapia-desc">Hidratação profunda e nutrição intensa com óleos essenciais e ativos orgânicos.</p>
+                    <div class="service-price"><span data-i18n="price-from">A partir de</span> R$ 220,00</div>
 
                 </div>
                 <div class="service-card">
                     <i class="fa-solid fa-wand-magic-sparkles"></i>
-                    <h3>Definição Premium</h3>
-                    <p>Finalização de longa duração que realça o movemento e elimina o excesso de frizz.</p>
-                    <div class="service-price">A partir de R$ 130,00</div>
+                    <h3 data-i18n="service-definicao">Definição Premium</h3>
+                    <p data-i18n="service-definicao-desc">Finalização de longa duração que realça o movemento e elimina o excesso de frizz.</p>
+                    <div class="service-price"><span data-i18n="price-from">A partir de</span> R$ 130,00</div>
 
                 </div>
                 <div class="service-card">
                     <i class="fa-solid fa-arrows-spin"></i>
-                    <h3>Consultoria de Transição</h3>
-                    <p>Acompanhamento completo para quem decidiu assumir a sua textura natural.</p>
-                    <div class="service-price">R$ 150,00 / sessão</div>
+                    <h3 data-i18n="service-consultoria">Consultoria de Transição</h3>
+                    <p data-i18n="service-consultoria-desc">Acompanhamento completo para quem decidiu assumir a sua textura natural.</p>
+                    <div class="service-price">R$ 150,00 <span data-i18n="price-session">/ sessão</span></div>
 
                 </div>
                 <div class="service-card">
                     <i class="fa-solid fa-palette"></i>
-                    <h3>Coloração Consciente</h3>
-                    <p>Produtos sem amoníaco que preservam a saúde e a estrutura dos seus caracóis.</p>
-                    <div class="service-price">Sob Consulta</div>
+                    <h3 data-i18n="service-coloracao">Coloração Consciente</h3>
+                    <p data-i18n="service-coloracao-desc">Produtos sem amoníaco que preservam a saúde e a estrutura dos seus caracóis.</p>
+                    <div class="service-price" data-i18n="price-consult">Sob Consulta</div>
 
                 </div>
                 <div class="service-card">
                     <i class="fa-solid fa-sun"></i>
-                    <h3>Mechas Iluminadas</h3>
-                    <p>Técnicas de luzes personalizadas que respeitam e realçam o seu padrão de curvatura.</p>
-                    <div class="service-price">Sob Consulta</div>
+                    <h3 data-i18n="service-mechas">Mechas Iluminadas</h3>
+                    <p data-i18n="service-mechas-desc">Técnicas de luzes personalizadas que respeitam e realçam o seu padrão de curvatura.</p>
+                    <div class="service-price" data-i18n="price-consult">Sob Consulta</div>
 
                 </div>
                 <div class="service-card">
                     <i class="fa-solid fa-soap"></i>
-                    <h3>Detox do Couro Cabeludo</h3>
-                    <p>Limpeza profunda e esfoliação para estimular o crescimento e a saúde capilar.</p>
+                    <h3 data-i18n="service-detox">Detox do Couro Cabeludo</h3>
+                    <p data-i18n="service-detox-desc">Limpeza profunda e esfoliação para estimular o crescimento e a saúde capilar.</p>
                     <div class="service-price">R$ 140,00</div>
 
                 </div>
                 <div class="service-card">
                     <i class="fa-solid fa-graduation-cap"></i>
-                    <h3>Workshop de Finalização</h3>
-                    <p>Aprenda as melhores técnicas para estilizar os seus cachos no dia-a-dia.</p>
+                    <h3 data-i18n="service-workshop">Workshop de Finalização</h3>
+                    <p data-i18n="service-workshop-desc">Aprenda as melhores técnicas para estilizar os seus cachos no dia-a-dia.</p>
                     <div class="service-price">R$ 250,00</div>
 
                 </div>
@@ -156,9 +173,9 @@
     <section id="shop" class="shop">
         <div class="container">
             <div class="section-title reveal">
-                <h2 class="shimmer-title">Glow Shop</h2>
+                <h2 class="shimmer-title" data-i18n="section-shop-title">Glow Shop</h2>
                 <div class="divider"></div>
-                <p>Uma seleção rigorosa de ativos para a manutenção do brilho absoluto.</p>
+                <p data-i18n="section-shop-subtitle">Uma seleção rigorosa de ativos para a manutenção do brilho absoluto.</p>
             </div>
             <div class="shop-grid">
                 <div class="product-card reveal">
@@ -169,7 +186,7 @@
                         <h3>Essential Glow</h3>
                         <p>Brilho espelhado e definição máxima para todos os tipos de caracóis.</p>
                         <div class="product-price">R$ 190,00</div>
-                        <button class="btn btn-primary add-to-cart">Adicionar</button>
+                        <button class="btn btn-primary add-to-cart" data-i18n="product-add">Adicionar</button>
                     </div>
                 </div>
                 <div class="product-card reveal">
@@ -180,7 +197,7 @@
                         <h3>Essential Glow Duo</h3>
                         <p>O combo perfeito: Máscara de hidratação intensa + Óleo finalizador para brilho extremo.</p>
                         <div class="product-price">R$ 90,00</div>
-                        <button class="btn btn-primary add-to-cart">Adicionar</button>
+                        <button class="btn btn-primary add-to-cart" data-i18n="product-add">Adicionar</button>
                     </div>
                 </div>
 
@@ -192,7 +209,7 @@
                         <h3>Essential Clean Duo</h3>
                         <p>Limpeza suave e hidratação diária para manter o brilho natural.</p>
                         <div class="product-price">R$ 150,00</div>
-                        <button class="btn btn-primary add-to-cart">Adicionar</button>
+                        <button class="btn btn-primary add-to-cart" data-i18n="product-add">Adicionar</button>
                     </div>
                 </div>
                 <div class="product-card reveal">
@@ -203,7 +220,7 @@
                         <h3>Essential Glow Oil</h3>
                         <p>Toque final de seda com proteção térmica e filtro UV.</p>
                         <div class="product-price">R$ 40,00</div>
-                        <button class="btn btn-primary add-to-cart">Adicionar</button>
+                        <button class="btn btn-primary add-to-cart" data-i18n="product-add">Adicionar</button>
                     </div>
                 </div>
                 <div class="product-card reveal">
@@ -214,7 +231,7 @@
                         <h3>Creme de Pentear Essential</h3>
                         <p>Definição leve e hidratação profunda para pentear e modelar os cachos com facilidade.</p>
                         <div class="product-price">R$ 70,00</div>
-                        <button class="btn btn-primary add-to-cart">Adicionar</button>
+                        <button class="btn btn-primary add-to-cart" data-i18n="product-add">Adicionar</button>
                     </div>
                 </div>
                 <div class="product-card reveal">
@@ -237,8 +254,8 @@
         <div class="container">
             <div class="booking-wrapper reveal">
                 <div class="booking-header">
-                    <h2>Marcar Consulta</h2>
-                    <p>Escolha o melhor horário para cuidar de você.</p>
+                    <h2 data-i18n="section-booking-title">Marcar Consulta</h2>
+                    <p data-i18n="section-booking-subtitle">Escolha o melhor horário para cuidar de você.</p>
                 </div>
                 <form id="bookingForm" class="booking-form">
                     <div class="form-group icon-input">
@@ -273,7 +290,7 @@
                         <i class="fa-solid fa-calendar-days"></i>
                         <input type="date" id="date" required>
                     </div>
-                    <button type="submit" class="btn btn-primary full-width">Enviar Pedido</button>
+                    <button type="submit" class="btn btn-primary full-width" data-i18n="form-submit">Enviar Pedido</button>
                     <p class="form-status" id="formStatus"></p>
                 </form>
             </div>
@@ -284,9 +301,9 @@
     <section id="reviews" class="reviews">
         <div class="container">
             <div class="section-title reveal">
-                <h2 class="shimmer-title">Experiências Glow</h2>
+                <h2 class="shimmer-title" data-i18n="section-reviews-title">Experiências Glow</h2>
                 <div class="divider"></div>
-                <p>Histórias reais de quem redescobriu a beleza dos seus cachos e o poder dos nossos produtos.</p>
+                <p data-i18n="section-reviews-subtitle">Histórias reais de quem redescobriu a beleza dos seus cachos e o poder dos nossos produtos.</p>
             </div>
             <div class="reviews-carousel">
                 <div class="reviews-grid" id="reviewsGrid">
@@ -507,9 +524,9 @@
     <section id="contact-form-section" class="contact-section">
         <div class="container">
             <div class="section-title reveal">
-                <h2>Fale Conosco</h2>
+                <h2 data-i18n="section-contact-title">Fale Conosco</h2>
                 <div class="divider"></div>
-                <p>Tem alguma dúvida ou gostaria de mais informações? Envie-nos uma mensagem.</p>
+                <p data-i18n="section-contact-subtitle">Tem alguma dúvida ou gostaria de mais informações? Envie-nos uma mensagem.</p>
             </div>
             <div class="booking-wrapper reveal" style="background: var(--bg-color); box-shadow: var(--shadow);">
                 <form id="contactForm" class="booking-form"
@@ -532,7 +549,7 @@
                         <textarea name="message" id="contactMessage" rows="5" placeholder="Sua Mensagem"
                             required></textarea>
                     </div>
-                    <button type="submit" class="btn btn-primary full-width" id="contactSubmitBtn">Enviar
+                    <button type="submit" class="btn btn-primary full-width" id="contactSubmitBtn" data-i18n="contact-submit">Enviar
                         Mensagem</button>
                     <p class="form-status" id="contactStatus"></p>
                 </form>
@@ -545,7 +562,7 @@
         <div class="container footer-grid">
             <div class="footer-brand">
                 <a href="#" class="logo">Curlys <span>Glow</span></a>
-                <p>O salão que celebra a identidade de cada cacho. <br>Amor em forma de cuidado.</p>
+                <p data-i18n="footer-desc">O salão que celebra a identidade de cada cacho. <br>Amor em forma de cuidado.</p>
                 <div class="social-links">
                     <a href="https://www.instagram.com/" target="_blank"><i class="fa-brands fa-instagram"></i></a>
                     <a href="https://www.facebook.com/" target="_blank"><i class="fa-brands fa-facebook"></i></a>
@@ -553,7 +570,7 @@
                 </div>
             </div>
             <div class="footer-links">
-                <h4>Links Rápidos</h4>
+                <h4 data-i18n="footer-quick-links">Links Rápidos</h4>
                 <ul>
                     <li><a href="#home">Início</a></li>
                     <li><a href="#services">Serviços</a></li>
@@ -562,12 +579,12 @@
                 </ul>
             </div>
             <div class="footer-contact">
-                <h4>Contato</h4>
+                <h4 data-i18n="footer-contact">Contato</h4>
                 <p><i class="fa-solid fa-location-dot"></i> <a
                         href="https://www.google.com/maps/search/?api=1&query=Rua+dos+Cachos+123+São+Paulo"
-                        target="_blank" style="color: inherit; text-decoration: none;" class="address-link">Rua dos
+                        target="_blank" style="color: inherit; text-decoration: none;" class="address-link" data-i18n="footer-address">Rua dos
                         Cachos, 123, São Paulo</a></p>
-                <p><i class="fa-solid fa-clock"></i> Ter-Sáb: 08:00 às 22:00</p>
+                <p><i class="fa-solid fa-clock"></i> <span data-i18n="footer-hours">Ter-Sáb: 08:00 às 22:00</span></p>
                 <p><i class="fa-solid fa-phone"></i> <a href="tel:+5511912345678"
                         style="color: inherit; text-decoration: none;">+55 (11) 91234-5678</a></p>
                 <p><i class="fa-brands fa-whatsapp"></i> <a href="https://wa.me/5511912345678"
@@ -577,26 +594,26 @@
             </div>
         </div>
         <div class="footer-bottom">
-            <p>&copy; 2026 Curlys Glow. Todos os direitos reservados. Design by Antigravity.</p>
+            <p data-i18n="footer-rights">&copy; 2026 Curlys Glow. Todos os direitos reservados. Design by Antigravity.</p>
         </div>
     </footer>
 
     <!-- Side Cart -->
     <div class="side-cart" id="sideCart">
         <div class="cart-header">
-            <h3>O Seu Carrinho</h3>
+            <h3 data-i18n="cart-title">O Seu Carrinho</h3>
             <button class="close-cart" id="closeCart"><i class="fa-solid fa-xmark"></i></button>
         </div>
         <div class="cart-items" id="cartItemsList">
             <!-- Items added via JS -->
-            <p class="empty-msg">O seu carrinho está vazio.</p>
+            <p class="empty-msg" data-i18n="cart-empty">O seu carrinho está vazio.</p>
         </div>
         <div class="cart-footer">
             <div class="total-row">
-                <span>Total:</span>
+                <span data-i18n="cart-total">Total:</span>
                 <span id="cartTotal">R$ 0,00</span>
             </div>
-            <button class="btn btn-primary full-width" id="checkoutBtn">Finalizar Compra</button>
+            <button class="btn btn-primary full-width" id="checkoutBtn" data-i18n="cart-checkout">Finalizar Compra</button>
         </div>
     </div>
 
@@ -604,7 +621,7 @@
     <div class="modal-overlay" id="checkoutModal">
         <div class="checkout-container">
             <button class="close-modal" id="closeCheckout"><i class="fa-solid fa-xmark"></i></button>
-            <h2>Finalizar Pedido</h2>
+            <h2 data-i18n="checkout-title">Finalizar Pedido</h2>
 
             <div class="checkout-grid">
                 <!-- Left Column: Steps -->
@@ -612,10 +629,10 @@
                     
                     <!-- Step 1: Delivery Options -->
                     <div class="checkout-section" id="checkoutStep1">
-                        <h3>1. Como deseja receber?</h3>
+                        <h3 data-i18n="checkout-step-1">1. Como deseja receber?</h3>
                         <div class="option-toggle">
-                            <button class="toggle-btn active" data-type="retirar">Retirar no Salão</button>
-                            <button class="toggle-btn" data-type="entrega">Entrega em Casa</button>
+                            <button class="toggle-btn active" data-type="retirar" data-i18n="checkout-pickup">Retirar no Salão</button>
+                            <button class="toggle-btn" data-type="entrega" data-i18n="checkout-delivery">Entrega em Casa</button>
                         </div>
 
                         <div id="pickupInfo" class="logistic-info">
@@ -670,12 +687,12 @@
                             </div>
                         </div>
                         
-                        <button type="button" class="btn btn-primary full-width" id="goToPaymentBtn" style="margin-top: 2rem;">Avançar para Pagamento</button>
+                        <button type="button" class="btn btn-primary full-width" id="goToPaymentBtn" style="margin-top: 2rem;" data-i18n="checkout-advance">Avançar para Pagamento</button>
                     </div>
 
                 <!-- Step 2: Payment Options -->
                 <div class="checkout-section hidden" id="checkoutStep2">
-                    <h3>2. Forma de Pagamento</h3>
+                    <h3 data-i18n="checkout-step-2">2. Forma de Pagamento</h3>
                     <div class="payment-options">
                         <label class="payment-card active">
                             <input type="radio" name="payment" value="pix" checked>
@@ -784,7 +801,7 @@
 
 
                     
-                    <button type="button" class="btn btn-outline full-width" id="backToStep1Btn" style="margin-top: 1rem;">Voltar para Endereço</button>
+                    <button type="button" class="btn btn-outline full-width" id="backToStep1Btn" style="margin-top: 1rem;" data-i18n="checkout-back">Voltar para Endereço</button>
                 </div>
                 </div> <!-- End Left Column -->
 
@@ -810,7 +827,7 @@
                         <div class="divider"></div>
                         <p class="final-total">Total: <span id="summaryTotal">R$ 0,00</span></p>
                     </div>
-                    <button class="btn btn-primary full-width hidden" id="confirmPurchaseBtn">Confirmar e Pagar</button>
+                    <button class="btn btn-primary full-width hidden" id="confirmPurchaseBtn" data-i18n="checkout-confirm">Confirmar e Pagar</button>
                 </div>
             </div>
         </div>
@@ -821,10 +838,10 @@
         <div class="auth-container">
             <button class="close-modal" id="closeAuth"><i class="fa-solid fa-xmark"></i></button>
             <div class="auth-header">
-                <h2>Bem-vindo(a)</h2>
+                <h2 data-i18n="auth-title">Bem-vindo(a)</h2>
                 <div class="auth-tabs option-toggle">
-                    <button class="toggle-btn active" data-tab="login">Login</button>
-                    <button class="toggle-btn" data-tab="register">Cadastro</button>
+                    <button class="toggle-btn active" data-tab="login" data-i18n="auth-login">Login</button>
+                    <button class="toggle-btn" data-tab="register" data-i18n="auth-register">Cadastro</button>
                 </div>
             </div>
 
@@ -862,7 +879,7 @@
                 <a href="#" id="forgotPassBtn" class="forgot-pass-link"
                     style="font-size: 0.8rem; color: var(--accent-color); text-decoration: none; display: block; text-align: right; margin-top: 0.8rem;">Esqueceu
                     a senha?</a>
-                <button type="submit" class="btn btn-primary full-width" id="authSubmitBtn">Entrar</button>
+                <button type="submit" class="btn btn-primary full-width" id="authSubmitBtn" data-i18n="auth-login">Entrar</button>
                 <p class="form-status" id="authStatus"></p>
             </form>
         </div>
@@ -876,7 +893,7 @@
     <!-- Floating Wheel Trigger -->
     <button class="wheel-trigger" id="openWheel" title="Girar Roleta da Sorte">
         <i class="fa-solid fa-gift"></i>
-        <span>Girar Roleta</span>
+        <span data-i18n="wheel-spin-btn">Girar Roleta</span>
     </button>
 
     <!-- Wheel Modal -->
@@ -884,8 +901,8 @@
         <div class="wheel-container">
             <button class="close-modal" id="closeWheel"><i class="fa-solid fa-xmark"></i></button>
             <div class="wheel-header">
-                <h2 class="shimmer-title">Roleta Glow</h2>
-                <p>Gire e ganhe descontos exclusivos!</p>
+                <h2 class="shimmer-title" data-i18n="wheel-title">Roleta Glow</h2>
+                <p data-i18n="wheel-subtitle">Gire e ganhe descontos exclusivos!</p>
             </div>
             
             <div class="wheel-box">
@@ -902,20 +919,20 @@
             </div>
             
             <div class="wheel-prizes-list">
-                <p><strong>Prêmios em jogo:</strong> 30% OFF, 20% OFF, 15% OFF, 10% OFF, Frete Grátis e mais!</p>
+                <p><strong data-i18n="wheel-prizes-label">Prêmios em jogo:</strong> <span data-i18n="wheel-prizes">30% OFF, 20% OFF, 15% OFF, 10% OFF, Frete Grátis e mais!</span></p>
             </div>
 
-            <button class="btn btn-primary" id="spinBtn">GIRAR AGORA</button>
+            <button class="btn btn-primary" id="spinBtn" data-i18n="wheel-spin">GIRAR AGORA</button>
 
 
             <div id="wheelResult" class="wheel-result hidden">
-                <h3>Parabéns!</h3>
-                <p>Você ganhou: <span id="prizeText"></span></p>
+                <h3 data-i18n="wheel-win-title">Parabéns!</h3>
+                <p><span data-i18n="wheel-win-subtitle">Você ganhou:</span> <span id="prizeText"></span></p>
                 <div class="coupon-box">
                     <span id="wonCouponCode"></span>
                     <button id="copyWonCoupon"><i class="fa-solid fa-copy"></i></button>
                 </div>
-                <p class="small">Use no seu próximo pedido!</p>
+                <p class="small" data-i18n="wheel-win-small">Use no seu próximo pedido!</p>
             </div>
         </div>
     </div>
@@ -924,11 +941,11 @@
     <div id="cookieBanner" class="cookie-banner">
         <div class="cookie-content">
             <i class="fa-solid fa-cookie-bite"></i>
-            <p>Utilizamos cookies para melhorar a sua experiência e personalizar o nosso conteúdo. Ao continuar a
+            <p data-i18n="cookie-text">Utilizamos cookies para melhorar a sua experiência e personalizar o nosso conteúdo. Ao continuar a
                 navegar, você concorda com a nossa política.</p>
         </div>
         <div class="cookie-btns">
-            <button id="acceptCookies" class="btn btn-primary">Aceitar</button>
+            <button id="acceptCookies" class="btn btn-primary" data-i18n="cookie-accept">Aceitar</button>
         </div>
     </div>
 

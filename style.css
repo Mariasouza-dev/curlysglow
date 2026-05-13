@@ -1,8 +1,8 @@
 :root {
     --primary-color: #5d1a0d; /* Deeper, more sophisticated brown */
     --primary-light: #7a2615;
-    --accent-color: #c5a02d; /* Muted gold */
-    --accent-glow: rgba(197, 160, 45, 0.3);
+    --accent-color: #9d7c1a; /* Darker, richer gold for better contrast on light backgrounds */
+    --accent-glow: rgba(157, 124, 26, 0.3);
     --text-color: #1a1412; 
     --text-muted: #6b5d59;
     --bg-gradient: linear-gradient(135deg, #fdfcfb 0%, #e2d1c3 100%);
@@ -138,11 +138,22 @@ img {
     color: var(--primary-color);
 }
 
+.hero .btn-outline {
+    border-color: #fff;
+    color: #fff;
+}
+
 .btn-outline:hover {
     background: var(--primary-color);
     color: var(--white);
     transform: translateY(-5px);
     box-shadow: 0 10px 20px -10px var(--primary-color);
+}
+
+.hero .btn-outline:hover {
+    background: #fff;
+    color: #1a1412;
+    box-shadow: 0 10px 20px rgba(255,255,255,0.1);
 }
 
 .section-title {
@@ -253,6 +264,86 @@ img {
     display: flex;
     align-items: center;
     gap: 1.5rem;
+}
+
+/* Language Switcher */
+.lang-switcher {
+    position: relative;
+    z-index: 1000;
+}
+
+.lang-btn {
+    background: transparent;
+    border: 1px solid rgba(186, 137, 107, 0.2);
+    color: var(--primary-color);
+    padding: 0.5rem 0.8rem;
+    border-radius: 50px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: var(--transition-smooth);
+    font-family: inherit;
+}
+
+.lang-btn:hover {
+    border-color: var(--accent-color);
+    background: rgba(186, 137, 107, 0.05);
+    transform: translateY(-1px);
+}
+
+.lang-dropdown {
+    position: absolute;
+    top: calc(100% + 10px);
+    right: 0;
+    background: var(--bg-color);
+    min-width: 140px;
+    border-radius: 12px;
+    box-shadow: var(--shadow-lg);
+    border: 1px solid rgba(186, 137, 107, 0.1);
+    backdrop-filter: blur(10px);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+    transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    overflow: hidden;
+}
+
+.lang-switcher:hover .lang-dropdown {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.lang-dropdown button {
+    width: 100%;
+    padding: 0.8rem 1.2rem;
+    background: transparent;
+    border: none;
+    color: var(--primary-color);
+    text-align: left;
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: block;
+    font-family: inherit;
+}
+
+.lang-dropdown button:hover {
+    background: var(--accent-color);
+    color: white;
+}
+
+body.dark-theme .lang-btn {
+    color: var(--text-color);
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+body.dark-theme .lang-dropdown {
+    background: rgba(30, 20, 15, 0.95);
 }
 
 .cart-icon, .user-icon {
@@ -371,14 +462,18 @@ body.dark-theme .theme-toggle:hover {
     animation: spin-once 0.8s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Fix Navbar Contrast in Dark Mode */
-body.dark-theme .navbar:not(.scrolled) .logo,
-body.dark-theme .navbar:not(.scrolled) .nav-links a,
-body.dark-theme .navbar:not(.scrolled) .cart-icon,
-body.dark-theme .navbar:not(.scrolled) .user-icon,
-body.dark-theme .navbar:not(.scrolled) .theme-toggle,
-body.dark-theme .navbar:not(.scrolled) .mobile-menu-btn {
-    color: var(--primary-color) !important;
+/* Fix Navbar Contrast for Dark Hero */
+.navbar:not(.scrolled) .logo,
+.navbar:not(.scrolled) .nav-links a,
+.navbar:not(.scrolled) .cart-icon,
+.navbar:not(.scrolled) .user-icon,
+.navbar:not(.scrolled) .theme-toggle,
+.navbar:not(.scrolled) .mobile-menu-btn {
+    color: #fff !important;
+}
+
+.navbar:not(.scrolled) .user-welcome {
+    color: #fff !important;
 }
 
 body.dark-theme .navbar.scrolled .logo,
@@ -397,8 +492,20 @@ body.dark-theme .navbar.scrolled .mobile-menu-btn {
     align-items: center;
     padding: 10rem 0 8rem;
     position: relative;
-    background: var(--section-bg);
+    background: #1a1412; /* Dark background for maximum contrast with gold */
     overflow: hidden;
+    color: #fff;
+}
+
+.hero::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at 70% 30%, rgba(157, 124, 26, 0.15) 0%, transparent 70%);
+    pointer-events: none;
 }
 
 .hero-content {
@@ -411,7 +518,7 @@ body.dark-theme .navbar.scrolled .mobile-menu-btn {
     font-size: 5.5rem;
     line-height: 1;
     margin-bottom: 2rem;
-    color: var(--primary-color);
+    color: #fff;
     font-weight: 800;
 }
 
@@ -426,12 +533,11 @@ body.dark-theme .navbar.scrolled .mobile-menu-btn {
     font-size: 1.25rem;
     max-width: 540px;
     margin-bottom: 3.5rem;
-    color: var(--text-muted);
+    color: rgba(255, 255, 255, 0.8);
 }
 
 body.dark-theme .hero p {
-    color: var(--text-color);
-    opacity: 0.9;
+    color: rgba(255, 255, 255, 0.9);
 }
 
 .hero-btns {
@@ -462,10 +568,11 @@ body.dark-theme .hero p {
     right: -15px;
     width: 100%;
     height: 100%;
-    border: 1px solid var(--accent-color);
+    border: 2px solid var(--accent-color); /* Thicker */
     border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
     z-index: -1;
-    opacity: 0.6;
+    opacity: 1; 
+    box-shadow: 0 0 20px rgba(157, 124, 26, 0.4); /* Glow effect for more contrast */
     transition: var(--transition-smooth);
 }
 
@@ -476,10 +583,10 @@ body.dark-theme .hero p {
     left: -15px;
     width: 100%;
     height: 100%;
-    border: 1px solid var(--accent-color);
+    border: 1.5px solid var(--accent-color);
     border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
     z-index: -2;
-    opacity: 0.4;
+    opacity: 0.8;
     transition: var(--transition-smooth);
 }
 
@@ -490,10 +597,10 @@ body.dark-theme .hero p {
     left: -15px;
     width: 100%;
     height: 100%;
-    border: 1px solid var(--accent-color);
+    border: 1.5px solid var(--accent-color);
     border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
     z-index: -1;
-    opacity: 0.3;
+    opacity: 0.7;
     transition: var(--transition-smooth);
 }
 
@@ -507,7 +614,7 @@ body.dark-theme .hero p {
     border: 1px solid var(--accent-color);
     border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
     z-index: -1;
-    opacity: 0.2;
+    opacity: 0.6;
     transition: var(--transition-smooth);
 }
 
@@ -1090,7 +1197,7 @@ body.dark-theme select:focus {
 
 /* "Glow" Text Effect */
 .hero h1 span, .section-title h2, .logo span {
-    text-shadow: 0 0 15px rgba(212, 175, 55, 0.2);
+    text-shadow: 0 2px 4px rgba(0,0,0,0.1), 0 0 15px rgba(157, 124, 26, 0.2);
     transition: var(--transition);
 }
 
@@ -2055,6 +2162,30 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     font-size: 0.85rem;
     margin-bottom: 0.5rem;
     opacity: 0.7;
+}
+
+.lang-switcher-mobile {
+    display: flex;
+    gap: 0.8rem;
+    margin-right: 1.5rem;
+}
+
+.lang-switcher-mobile button {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #fff;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    font-size: 0.8rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.lang-switcher-mobile button:hover, .lang-switcher-mobile button.active {
+    background: var(--accent-color);
+    border-color: var(--accent-color);
 }
 
 .copy-input-wrapper {
